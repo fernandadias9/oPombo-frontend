@@ -1,0 +1,35 @@
+<div class="grid h-screen w-screen content-center">
+  <form class="grid gap-3 m-auto drop-shadow-[0_5px_5px_#8b8b8b] rounded-xl px-8 py-6 size-content bg-sky-600" action="" (ngSubmit)="onSubmit()">
+    <h5 class="justify-self-center">Cadastre-se</h5>
+
+    <div class="flex gap-3">
+      <div class="grid gap-1">
+        <label for="nome">Nome</label>
+        <input class="form-control rounded-md h-8 pl-2 bg-slate-200 shadow-xl" for="nome" id="nome" type="text" [(ngModel)]="usuario.nome" name="nome">
+        <!-- <app-input label="Nome" for="nome" id="nome" type="text" [(ngModel)]="usuario.nome" name="nome"></app-input> -->
+      </div>
+      <div class="grid gap-1">
+        <label for="email">Email</label>
+        <input class="form-control rounded-md h-8 pl-2 bg-slate-200 shadow-xl" for="email" id="email" type="email" [(ngModel)]="usuario.email" name="email">
+        <!-- <app-input label="Email" for="email" id="email" type="email" [(ngModel)]="usuario.email" name="email"></app-input> -->
+      </div>
+    </div>
+
+    <div class="flex gap-3">
+      <div class="grid gap-1">
+        <label for="cpf">CPF</label>
+        <input class="form-control rounded-md h-8 pl-2 bg-slate-200 shadow-xl" for="cpf" id="cpf" type="text" [(ngModel)]="usuario.cpf" name="cpf">
+        <!-- <app-input label="CPF" for="cpf" id="cpf" type="text" [(ngModel)]="usuario.cpf" name="cpf"></app-input> -->
+      </div>
+      <div class="grid gap-1">
+        <label for="nome">Senha</label>
+        <input class="form-control rounded-md h-8 pl-2 bg-slate-200 shadow-xl" for="senha" id="senha" type="password" [(ngModel)]="usuario.senha" name="senha">
+        <!-- <app-input label="Senha" for="senha" id="senha" type="password" [(ngModel)]="usuario.senha" name="senha"></app-input> -->
+      </div>
+    </div>
+    <div class="flex gap-3">
+      <app-confirm-button></app-confirm-button>
+      <app-cancel-button></app-cancel-button>
+    </div>
+  </form>
+</div>

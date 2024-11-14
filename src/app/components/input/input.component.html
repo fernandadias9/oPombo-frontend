@@ -1,0 +1,12 @@
+<div class="grid gap-1">
+  <label [for]="for">{{ label }}</label>
+  <input [id]="id"
+  class="rounded-md h-8 pl-2 bg-slate-200 shadow-xl"
+  [type]="type"
+  [(ngModel)]="value"
+  (ngModelChange)="onValueChange($event)"
+  />
+
+</div>
+
+
