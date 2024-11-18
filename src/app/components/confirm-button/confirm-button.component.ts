@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './confirm-button.component.scss'
 })
 export class ConfirmButtonComponent {
-  // @Input() onClick!: () => void;
+  @Input() label: string = 'Confirmar';
 }

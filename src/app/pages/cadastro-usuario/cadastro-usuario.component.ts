@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Usuario } from '../../model/entities/usuario';
-import { AuthService } from '../../service/auth-service.service';
+import { AuthService } from '../../service/auth-service';
 import Swal from 'sweetalert2';
 import { TipoDeUsuario } from '../../model/enums/tipoUsuario';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -21,7 +22,7 @@ export class CadastroUsuarioComponent {
 
   errorMessage: string | null | undefined;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
     console.log(this.usuario);
@@ -30,17 +31,18 @@ export class CadastroUsuarioComponent {
         Swal.fire({
           icon: 'success',
           title: 'Sucesso',
-          text: 'Usuário salvo com sucesso!',
-          timer: 3000,
+          text: 'Usuário salvo com sucesso.',
+          timer: 2000,
           showConfirmButton: false
         });
+    this.router.navigate(['']);
       },
       error: (error) => {
         Swal.fire({
           icon: 'error',
           title: 'Erro',
           text: error.message || 'Ocorreu um erro ao salvar o usuário.',
-          timer: 3000,
+          timer: 2000,
           showConfirmButton: false
         });
       }

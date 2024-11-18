@@ -17,7 +17,7 @@ import { FeedComponent } from './pages/feed/feed.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { AuthService } from './service/auth-service.service';
+import { AuthService } from './service/auth-service';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({

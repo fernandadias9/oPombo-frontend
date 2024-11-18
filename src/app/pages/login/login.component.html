@@ -2,12 +2,12 @@
   <form class="grid gap-3 m-auto drop-shadow-[0_5px_5px_#8b8b8b] rounded-xl px-8 py-6 size-content bg-sky-600" action="">
     <h5 class="justify-self-center">Faça seu login</h5>
     <div class="grid gap-1">
-      <app-input label="Email" for="email" id="email" type="email"></app-input>
+      <app-input label="Email" for="email" id="email" type="email" [(ngModel)]="usuarioDto.login" name="login"></app-input>
     </div>
     <div class="grid gap-1">
-      <app-input label="Senha" for="senha" id="senha" type="password"></app-input>
+      <app-input label="Senha" for="senha" id="senha" type="password" [(ngModel)]="usuarioDto.senha" name="senha"></app-input>
     </div>
     <a class="text-xs underline hover:text-neutral-300" routerLink="/cadastro-usuario">Cadastre-se</a>
-    <app-confirm-button></app-confirm-button>
+    <app-confirm-button (click)="realizarLogin()"></app-confirm-button>
   </form>
 </div>
