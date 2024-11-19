@@ -10,8 +10,12 @@
       <img class="w-96 h-56 object-cover rounded-sm" [src]="mensagem.imagem" alt="Imagem da mensagem">
     </div>
     <div>
-      <i class="ph ph-feather"></i>
-      <!-- <i class="ph ph-bird"></i> -->
+      <i
+        class="ph"
+        [class.ph-feather]="!usuarioAutenticadoCurtiu()"
+        [class.ph-bird]="usuarioAutenticadoCurtiu()"
+        (click)="curtir()"
+      ></i>
       <p>{{ mensagem.qtdeLikes }} curtidas</p>
     </div>
   </div>

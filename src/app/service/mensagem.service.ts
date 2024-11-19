@@ -15,4 +15,12 @@ export class MensagemService {
   buscarMensagens(filtro: MensagemFiltro): Observable<Mensagem[]> {
     return this.http.post<Mensagem[]>(`${this.apiUrl}/filtro`, filtro);
   }
+
+  curtir(idUsuario: string, idMensagem: string): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/curtir/${idUsuario}/${idMensagem}`, {});
+  }
+
+  getMensagemById(id: string): Observable<Mensagem> {
+    return this.http.get<Mensagem>(`${this.apiUrl}/${id}`)
+  }
 }
