@@ -16,7 +16,7 @@ export class FeedComponent implements OnInit {
     limite: 30,
   };
   paginaAtual = 1;
-totalMensagens: any;
+  totalMensagens: any;
 
   constructor(private mensagemService: MensagemService) {}
 

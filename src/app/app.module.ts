@@ -15,11 +15,11 @@ import { CancelButtonComponent } from './components/cancel-button/cancel-button.
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FeedComponent } from './pages/feed/feed.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthService } from './service/auth-service';
 import { FormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { RequestInterceptor } from './auth/reques.interceptor';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   ],
   providers: [
     provideAnimationsAsync(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withInterceptorsFromDi(), withFetch()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    },
     AuthService
   ],
   bootstrap: [AppComponent]

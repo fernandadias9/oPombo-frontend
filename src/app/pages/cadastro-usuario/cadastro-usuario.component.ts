@@ -25,7 +25,6 @@ export class CadastroUsuarioComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
-    console.log(this.usuario);
     this.authService.salvarUsuario(this.usuario).subscribe({
       next: () => {
         Swal.fire({
