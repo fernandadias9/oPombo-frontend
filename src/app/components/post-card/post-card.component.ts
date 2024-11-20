@@ -1,3 +1,5 @@
+import { AuthService } from './../../service/auth-service';
+import { Usuario } from '../../model/entities/usuario';
 import { MensagemService } from '../../service/mensagem.service';
 import { Mensagem } from './../../model/entities/mensagem';
 import { Component, Input } from '@angular/core';
@@ -11,7 +13,10 @@ export class PostCardComponent {
   @Input() mensagem!: Mensagem;
   @Input() usuarioAutenticadoId!: string;
 
-  constructor(private mensagemService: MensagemService) {}
+  constructor(
+    private mensagemService: MensagemService,
+    private authService: AuthService
+  ) {}
 
   usuarioAutenticadoCurtiu(): boolean {
     return this.mensagem.usuariosQueCurtiram.some(
@@ -20,11 +25,14 @@ export class PostCardComponent {
   }
 
   curtir(): void {
-    this.mensagemService.curtir(this.usuarioAutenticadoId, this.mensagem.id).subscribe(() => {
-      this.mensagem.qtdeLikes = this.mensagem.usuariosQueCurtiram.length;
-      this.refreshMensagem();
-      this.usuarioAutenticadoCurtiu();
-    });
+    const usuarioId = this.authService.getUserIdFromToken();
+    if (usuarioId) {
+      this.mensagemService.curtir(usuarioId, this.mensagem.id).subscribe(() => {
+        this.mensagem.qtdeLikes = this.mensagem.usuariosQueCurtiram.length;
+        this.refreshMensagem();
+        this.usuarioAutenticadoCurtiu();
+      });
+    }
   }
 
   refreshMensagem(): void {

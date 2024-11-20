@@ -1,3 +1,4 @@
+import { AuthService } from './../../service/auth-service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,7 +9,13 @@ import { Component } from '@angular/core';
 export class NavbarComponent {
   isMenuOpen = false;
 
+  constructor(private AuthService: AuthService){}
+
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  signout() {
+    this.AuthService.sair();
   }
 }

@@ -31,7 +31,7 @@ import { RequestInterceptor } from './auth/reques.interceptor';
     CancelButtonComponent,
     NavbarComponent,
     FeedComponent,
-    PostCardComponent
+    PostCardComponent,
   ],
   imports: [
     BrowserModule,

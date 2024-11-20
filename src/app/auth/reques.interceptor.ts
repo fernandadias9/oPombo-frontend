@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { catchError, Observable, throwError } from "rxjs";
 import { AuthService } from "../service/auth-service";
 
+
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private router: Router) {}
@@ -28,5 +29,8 @@ export class RequestInterceptor implements HttpInterceptor {
         return throwError(error);
       })
     );
+
   }
+
+
 }
