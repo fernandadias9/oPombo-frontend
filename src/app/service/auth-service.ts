@@ -1,3 +1,4 @@
+import { TipoDeUsuario } from './../model/enums/tipoUsuario';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../model/entities/usuario';
@@ -57,6 +58,16 @@ export class AuthService {
     if (token) {
       const decodedToken: any = jwtDecode(token);
       return decodedToken.idUsuario;  // Retorna o userId
+    }
+    return null;
+  }
+
+  getTipoFromToken(): string | null {
+    const token = localStorage.getItem('tokenUsuarioAutenticado');
+
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.roles;
     }
     return null;
   }

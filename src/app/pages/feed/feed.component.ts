@@ -3,6 +3,8 @@ import { Mensagem } from '../../model/entities/mensagem';
 import { MensagemFiltro } from '../../model/filtros/mensagemFiltro';
 import { MensagemService } from '../../service/mensagem.service';
 import { PageEvent } from '@angular/material/paginator';
+import { ListaMensagensDTO } from '../../model/dto/mensagemDto';
+import { AuthService } from '../../service/auth-service';
 
 @Component({
   selector: 'app-feed',
@@ -23,12 +25,15 @@ export class FeedComponent implements OnInit {
   ngOnInit(): void {
     this.carregarMensagens();
   }
+
   public carregarMensagens(): void {
     this.mensagemService.buscarMensagens(this.filtro).subscribe(
       resultado => {
-      this.mensagens = resultado;
-      this.totalMensagens = resultado.length;
-    });
+        console.log('Mensagens recebidas:', resultado); // Verifique se as mensagens são diferentes
+        this.mensagens = resultado;
+        this.totalMensagens = resultado.length;
+      }
+    );
   }
 
   onPaginaMudou(event: PageEvent): void {
@@ -41,6 +46,13 @@ export class FeedComponent implements OnInit {
     this.filtro.pagina = 1;
     this.carregarMensagens();
   }
+
+  // carregarMensagens(): void {
+  //   this.mensagemService.listarMensagens().subscribe((mensagens) => {
+  //     this.mensagens = mensagens;
+  //   });
+  // }
+
 
   // alterarPagina(pagina: number): void {
   //   this.filtro.pagina = pagina;

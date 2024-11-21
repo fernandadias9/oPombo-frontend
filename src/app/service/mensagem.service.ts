@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Mensagem } from '../model/entities/mensagem';
 import { MensagemFiltro } from '../model/filtros/mensagemFiltro';
+import { ListaMensagensDTO } from '../model/dto/mensagemDto';
 
 @Injectable({
   providedIn: 'root',
@@ -23,9 +24,12 @@ export class MensagemService {
     );
   }
 
-
-
   getMensagemById(id: string): Observable<Mensagem> {
     return this.http.get<Mensagem>(`${this.apiUrl}/${id}`);
   }
+
+  listarMensagens(): Observable<ListaMensagensDTO[]> {
+    return this.http.get<ListaMensagensDTO[]>(`${this.apiUrl}`);
+  }
+
 }

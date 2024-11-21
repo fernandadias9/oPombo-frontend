@@ -1,4 +1,4 @@
-class ListaMensagensDTO {
+export class ListaMensagensDTO {
   id: string | undefined;
   texto: string | undefined;
   quantidadeCurtidas: number | undefined;

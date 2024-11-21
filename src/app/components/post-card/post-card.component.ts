@@ -3,6 +3,7 @@ import { Usuario } from '../../model/entities/usuario';
 import { MensagemService } from '../../service/mensagem.service';
 import { Mensagem } from './../../model/entities/mensagem';
 import { Component, Input, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-post-card',
@@ -22,6 +23,7 @@ export class PostCardComponent implements OnInit {
   ngOnInit(): void {
     this.usuarioAutenticadoId = this.authService.getUserIdFromToken() || '';
     this.getUsuarioAutenticadoCurtiu();
+
   }
 
   getUsuarioAutenticadoCurtiu() {
@@ -30,6 +32,18 @@ export class PostCardComponent implements OnInit {
     )) {
       this.usuarioAutenticadoCurtiu = true;
     }
+  }
+
+  exibirImagemGrande(imagemBase64: string) {
+    Swal.fire({
+      title: 'Imagem da Mensagem',
+      html: `<img src="data:image/jpeg;base64,${imagemBase64}" alt="Imagem da Carta" style="max-width: 100%; height: auto;">`,
+      width: '80%',
+      showCloseButton: true,
+      showConfirmButton: false,
+      background: '#fff',
+      padding: '20px'
+    });
   }
 
   curtir(): void {
