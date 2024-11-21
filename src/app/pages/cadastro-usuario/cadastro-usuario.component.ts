@@ -17,7 +17,8 @@ export class CadastroUsuarioComponent {
     cpf: '',
     email: '',
     tipoUsuario: TipoDeUsuario.USUARIO,
-    senha: ''
+    senha: '',
+    fotoPerfil: ''
   };
 
   errorMessage: string | null | undefined;

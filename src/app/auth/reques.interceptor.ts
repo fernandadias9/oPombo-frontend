@@ -10,7 +10,6 @@ export class RequestInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Interceptando requisição:', req.url);
     const tokenUsuarioAutenticado = localStorage.getItem('tokenUsuarioAutenticado');
     let authReq = req;
 

@@ -1,0 +1,16 @@
+<div *ngIf="isOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+    <h2 class="text-xl font-semibold mb-4">Criar Novo Pruu</h2>
+    <form #mensagemForm="ngForm" (ngSubmit)="salvarMensagem()">
+      <textarea [(ngModel)]="mensagem.texto" name="texto" required class="w-full p-2 border rounded mb-4" rows="4"
+        placeholder="Escreva sua mensagem"></textarea>
+      <input type="file" (change)="onImagemSelecionada($event)" class="mb-4" />
+
+      <div class="flex justify-end gap-4">
+        <button type="button" (click)="onClose.emit()" class="bg-gray-300 text-black px-4 py-2 rounded">Cancelar</button>
+        <button type="submit" [disabled]="!mensagemForm.valid" class="bg-blue-500 text-white px-4 py-2 rounded">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>
+

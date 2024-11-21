@@ -17,9 +17,10 @@ import { FeedComponent } from './pages/feed/feed.component';
 import { PostCardComponent } from './components/post-card/post-card.component';
 import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthService } from './service/auth-service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RequestInterceptor } from './auth/reques.interceptor';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RequestInterceptor } from './auth/reques.interceptor';
     NavbarComponent,
     FeedComponent,
     PostCardComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +41,8 @@ import { RequestInterceptor } from './auth/reques.interceptor';
     MatCardModule,
     MatButtonModule,
     FormsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideAnimationsAsync(),
