@@ -6,7 +6,6 @@ export interface Mensagem {
   publicador: Usuario;
   criadoEm: string;
   qtdeLikes: number;
-  imagem?: string;
   usuariosQueCurtiram: Usuario[];
   bloqueado: boolean;
 }

@@ -20,7 +20,8 @@ import { AuthService } from './service/auth-service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RequestInterceptor } from './auth/reques.interceptor';
-//import { PerfilComponent } from './pages/perfil/perfil.component';
+import { PerfilComponent } from './pages/perfil/perfil.component';
+import { ModalMensagemComponent } from './components/modal-mensagem/modal-mensagem.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { RequestInterceptor } from './auth/reques.interceptor';
     NavbarComponent,
     FeedComponent,
     PostCardComponent,
-    //PerfilComponent
+    PerfilComponent,
+    ModalMensagemComponent
   ],
   imports: [
     BrowserModule,

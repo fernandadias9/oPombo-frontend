@@ -13,6 +13,10 @@ export class MensagemService {
 
   constructor(private http: HttpClient) {}
 
+  salvar(mensagem: Mensagem): Observable<any> {
+    return this.http.post<void>(this.apiUrl, mensagem);
+  }
+
   buscarMensagens(filtro: MensagemFiltro): Observable<Mensagem[]> {
     return this.http.post<Mensagem[]>(`${this.apiUrl}/filtro`, filtro);
   }

@@ -1,22 +1,36 @@
 <div class="grid h-screen w-screen content-start">
   <app-navbar></app-navbar>
   <div class="container mx-auto pt-7">
-    <form (ngSubmit)="aplicarFiltro()" class="flex gap-5 items-end">
+    <form (ngSubmit)="aplicarFiltro()" class="flex gap-5 items-end mb-8">
       <app-input label="Pruu" [(ngModel)]="filtro.texto" name="texto"></app-input>
       <app-input label="Usuário" [(ngModel)]="filtro.texto" name="texto"></app-input>
       <app-input type="date" label="" [(ngModel)]="filtro.dataInicial" name="dataInicial"></app-input>
       <app-input type="date" label="" [(ngModel)]="filtro.dataFinal" name="dataFinal"></app-input>
-
       <app-confirm-button label="Filtrar"></app-confirm-button>
     </form>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <app-post-card *ngFor="let mensagem of mensagens" [mensagem]="mensagem"></app-post-card>
-    </div>
+    <app-modal-mensagem
+      [isOpen]="modalAberto"
+      (onClose)="fecharModal()"
+      (onSaveSuccess)="carregarMensagens()">
+    </app-modal-mensagem>
 
-    <mat-paginator [length]="totalMensagens" [pageSize]="filtro.limite" [pageSizeOptions]="[30, 60, 100]"
-      (page)="onPaginaMudou($event)">
-    </mat-paginator>
+    <div *ngIf="!modalAberto">
+      <div class="flex items-center justify-center mb-4">
+        <button (click)="abrirModalCriarPruu()" class="flex items-center gap-2 p-2 bg-transparent hover:scale-110 transition duration-300 ease-in-out text-white">
+          <i class="ph ph-bird text-4xl w-auto text-black"></i>
+          <span class="text-xl text-black">Criar Pruu</span>
+        </button>
+      </div>
+
+      <div class="grid gap-6 justify-center">
+        <app-post-card *ngFor="let mensagem of mensagens" [mensagem]="mensagem"></app-post-card>
+      </div>
+
+      <mat-paginator [length]="totalMensagens" [pageSize]="filtro.limite" [pageSizeOptions]="[30, 60, 100]"
+        (page)="onPaginaMudou($event)">
+      </mat-paginator>
+    </div>
 
     <!-- <div class="flex justify-center mt-4">
       <button
