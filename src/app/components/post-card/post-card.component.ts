@@ -25,7 +25,7 @@ export class PostCardComponent implements OnInit {
   }
 
   getUsuarioAutenticadoCurtiu() {
-    if(this.mensagem.usuariosQueCurtiram.some(
+    if(this.mensagem?.usuariosQueCurtiram?.some(
       (usuario) => usuario.id === this.usuarioAutenticadoId
     )) {
       this.usuarioAutenticadoCurtiu = true;
