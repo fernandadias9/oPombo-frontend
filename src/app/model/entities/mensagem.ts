@@ -8,4 +8,5 @@ export interface Mensagem {
   qtdeLikes: number;
   usuariosQueCurtiram: Usuario[];
   bloqueado: boolean;
+  imagem?: string;
 }

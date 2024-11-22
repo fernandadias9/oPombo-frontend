@@ -1,5 +1,4 @@
 import { AuthService } from './../../service/auth-service';
-import { Usuario } from '../../model/entities/usuario';
 import { MensagemService } from '../../service/mensagem.service';
 import { Mensagem } from './../../model/entities/mensagem';
 import { Component, Input, OnInit } from '@angular/core';
@@ -23,7 +22,6 @@ export class PostCardComponent implements OnInit {
   ngOnInit(): void {
     this.usuarioAutenticadoId = this.authService.getUserIdFromToken() || '';
     this.getUsuarioAutenticadoCurtiu();
-
   }
 
   getUsuarioAutenticadoCurtiu() {

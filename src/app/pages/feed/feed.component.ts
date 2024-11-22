@@ -30,7 +30,6 @@ export class FeedComponent implements OnInit {
   public carregarMensagens(): void {
     this.mensagemService.buscarMensagens(this.filtro).subscribe(
       resultado => {
-        console.log('Mensagens recebidas:', resultado); // Verifique se as mensagens são diferentes
         this.mensagens = resultado;
         this.totalMensagens = resultado.length;
       }
@@ -46,6 +45,14 @@ export class FeedComponent implements OnInit {
   aplicarFiltro(): void {
     this.filtro.pagina = 1;
     this.carregarMensagens();
+  }
+
+  abrirModalCriarPruu(): void {
+    this.modalAberto = true;
+  }
+
+  fecharModal(): void {
+    this.modalAberto = false;
   }
 
   // carregarMensagens(): void {

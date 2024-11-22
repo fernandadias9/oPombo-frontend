@@ -1,27 +1,56 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MensagemService } from '../../service/mensagem.service';
 import { ImagemService } from '../../service/imagem.service';
 import { Mensagem } from '../../model/entities/mensagem';
 import Swal from 'sweetalert2';
+import { Usuario } from '../../model/entities/usuario';
+import { UsuarioService } from '../../service/usuario.service';
+import { AuthService } from '../../service/auth-service';
 
 @Component({
   selector: 'app-modal-mensagem',
   templateUrl: './modal-mensagem.component.html',
   styleUrl: './modal-mensagem.component.scss'
 })
-export class ModalMensagemComponent {
+export class ModalMensagemComponent implements OnInit {
   @Input() isOpen = false;
   @Output() onClose = new EventEmitter<void>();
   @Output() onSaveSuccess = new EventEmitter<{texto: string, imagem: string | File | undefined}>();
 
-  public mensagem!: Mensagem;
+  public usuarioAutenticado!: Usuario;
+  public mensagem: Mensagem = {
+    id: '',
+    texto: '',
+    publicador: this.usuarioAutenticado,
+    criadoEm: '',
+    qtdeLikes: 0,
+    usuariosQueCurtiram: [],
+    bloqueado: false
+  };
   public selectedFile: File | null = null;
   public imagePreview: string | ArrayBuffer | null = null; // Para armazenar o preview da imagem
 
   constructor(
     private mensagemService: MensagemService,
-    private imagemService: ImagemService
+    private imagemService: ImagemService,
+    private usuarioService: UsuarioService,
+    private authService: AuthService
   ) {}
+
+  ngOnInit(): void {
+  }
+
+  getUsuarioAutenticado(): void {
+    const usuarioId = this.authService.getUserIdFromToken();
+    if(usuarioId) {
+      this.usuarioService.buscar(usuarioId).subscribe(
+        resposta => {
+          this.usuarioAutenticado = resposta;
+        }
+      )
+
+    }
+  }
 
   onImagemSelecionada(event: any) {
     const file: File = event.target.files[0];
