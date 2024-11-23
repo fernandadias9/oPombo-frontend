@@ -13,15 +13,8 @@ export class MensagemService {
 
   constructor(private http: HttpClient) {}
 
-  salvar(mensagem: Mensagem, imagem?: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('mensagem', new Blob([JSON.stringify(mensagem)], { type: 'application/json' }));
-
-    if (imagem) {
-      formData.append('imagem', imagem);
-    }
-
-    return this.http.post<void>(this.apiUrl, formData);
+  salvar(formData: FormData): Observable<any> {
+    return this.http.post<Mensagem>(`${this.apiUrl}`, formData);
   }
 
   buscarMensagens(filtro: MensagemFiltro): Observable<Mensagem[]> {

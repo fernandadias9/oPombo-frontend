@@ -1,7 +1,7 @@
-export interface MensagemFiltro {
+export class MensagemFiltro {
   texto?: string;
-  idPublicador?: string;
-  dataInicial?: string; 
+  nomePublicador?: string;
+  dataInicial?: string;
   dataFinal?: string;
   pagina?: number;
   limite?: number;

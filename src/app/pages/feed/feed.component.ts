@@ -1,6 +1,6 @@
+import { MensagemFiltro } from './../../model/filtros/mensagemFiltro';
 import { Component, OnInit } from '@angular/core';
 import { Mensagem } from '../../model/entities/mensagem';
-import { MensagemFiltro } from '../../model/filtros/mensagemFiltro';
 import { MensagemService } from '../../service/mensagem.service';
 import { PageEvent } from '@angular/material/paginator';
 import { ListaMensagensDTO } from '../../model/dto/mensagemDto';
@@ -20,6 +20,7 @@ export class FeedComponent implements OnInit {
   paginaAtual = 1;
   totalMensagens!: number;
   modalAberto = false;
+  public seletor: MensagemFiltro = new MensagemFiltro();
 
   constructor(private mensagemService: MensagemService) {}
 
@@ -53,6 +54,10 @@ export class FeedComponent implements OnInit {
 
   fecharModal(): void {
     this.modalAberto = false;
+  }
+
+  public limpar() {
+    this.seletor = new MensagemFiltro();
   }
 
   // carregarMensagens(): void {
