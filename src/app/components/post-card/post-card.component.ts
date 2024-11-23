@@ -1,8 +1,11 @@
+import { Denuncia } from './../../model/entities/denuncia';
 import { AuthService } from './../../service/auth-service';
 import { MensagemService } from '../../service/mensagem.service';
 import { Mensagem } from './../../model/entities/mensagem';
 import { Component, Input, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
+import { DenunciaService } from '../../service/denuncia.service';
+import { DenunciaDTO } from '../../model/dto/denunciaDto';
 
 @Component({
   selector: 'app-post-card',
@@ -13,19 +16,22 @@ export class PostCardComponent implements OnInit {
   @Input() mensagem!: Mensagem;
   usuarioAutenticadoId!: string;
   usuarioAutenticadoCurtiu: boolean = false;
+  @Input() denunciaDTO: DenunciaDTO = new DenunciaDTO();
+  menuAberto: boolean = false;
 
   constructor(
     private mensagemService: MensagemService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private denunciaService: DenunciaService
+  ) { }
 
   ngOnInit(): void {
-    this.usuarioAutenticadoId = this.authService.getUserIdFromToken() || '';
+    // this.usuarioAutenticadoId = this.authService.getUserIdFromToken() || '';
     this.getUsuarioAutenticadoCurtiu();
   }
 
   getUsuarioAutenticadoCurtiu() {
-    if(this.mensagem.usuariosQueCurtiram.some(
+    if (this.mensagem.usuariosQueCurtiram.some(
       (usuario) => usuario.id === this.usuarioAutenticadoId
     )) {
       this.usuarioAutenticadoCurtiu = true;
@@ -45,14 +51,11 @@ export class PostCardComponent implements OnInit {
   }
 
   curtir(): void {
-    const usuarioId = this.authService.getUserIdFromToken();
-    if (usuarioId) {
-      this.mensagemService.curtir(usuarioId, this.mensagem.id).subscribe(() => {
-        this.usuarioAutenticadoCurtiu = !this.usuarioAutenticadoCurtiu;
-        this.mensagem.qtdeLikes = this.mensagem.usuariosQueCurtiram.length;
-        this.refreshMensagem();
-      });
-    }
+    this.mensagemService.curtir(this.mensagem.id).subscribe(() => {
+      this.usuarioAutenticadoCurtiu = !this.usuarioAutenticadoCurtiu;
+      this.mensagem.qtdeLikes = this.mensagem.usuariosQueCurtiram.length;
+      this.refreshMensagem();
+    });
   }
 
   refreshMensagem(): void {
@@ -60,4 +63,10 @@ export class PostCardComponent implements OnInit {
       this.mensagem = mensagemAtualizada;
     });
   }
+
+  toggleMenu(): void {
+    this.menuAberto = !this.menuAberto;
+    this.denunciaDTO.idMensagem = this.mensagem.id;
+  }
+
 }

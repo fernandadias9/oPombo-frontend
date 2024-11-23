@@ -20,8 +20,9 @@ import { AuthService } from './service/auth-service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RequestInterceptor } from './auth/reques.interceptor';
-import { PerfilComponent } from './pages/perfil/perfil.component';
+//import { PerfilComponent } from './pages/perfil/perfil.component';
 import { ModalMensagemComponent } from './components/modal-mensagem/modal-mensagem.component';
+import { ModalDenunciaComponent } from './components/modal-denuncia/modal-denuncia.component';
 
 @NgModule({
   declarations: [
@@ -34,8 +35,9 @@ import { ModalMensagemComponent } from './components/modal-mensagem/modal-mensag
     NavbarComponent,
     FeedComponent,
     PostCardComponent,
-    PerfilComponent,
-    ModalMensagemComponent
+    //PerfilComponent,
+    ModalMensagemComponent,
+    ModalDenunciaComponent
   ],
   imports: [
     BrowserModule,

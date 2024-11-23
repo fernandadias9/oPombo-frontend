@@ -15,7 +15,7 @@ import { AuthService } from '../../service/auth-service';
 export class ModalMensagemComponent implements OnInit {
   @Input() isOpen = false;
   @Output() onClose = new EventEmitter<void>();
-  @Output() onSaveSuccess = new EventEmitter<{texto: string, imagem: string | File | undefined}>();
+  @Output() onSaveSuccess = new EventEmitter<{ texto: string, imagem: string | File | undefined }>();
 
   public usuarioAutenticado!: Usuario;
   public mensagem: Mensagem = {
@@ -35,22 +35,22 @@ export class ModalMensagemComponent implements OnInit {
     private imagemService: ImagemService,
     private usuarioService: UsuarioService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
   }
 
-  getUsuarioAutenticado(): void {
-    const usuarioId = this.authService.getUserIdFromToken();
-    if(usuarioId) {
-      this.usuarioService.buscar(usuarioId).subscribe(
-        resposta => {
-          this.usuarioAutenticado = resposta;
-        }
-      )
+  // getUsuarioAutenticado(): void {
+  //   const usuarioId = this.authService.getUserIdFromToken();
+  //   if(usuarioId) {
+  //     this.usuarioService.buscar(usuarioId).subscribe(
+  //       resposta => {
+  //         this.usuarioAutenticado = resposta;
+  //       }
+  //     )
 
-    }
-  }
+  //   }
+  // }
 
   onImagemSelecionada(event: any) {
     const file: File = event.target.files[0];
@@ -111,7 +111,7 @@ export class ModalMensagemComponent implements OnInit {
         });
       }
     )
-    };
+  };
 
   fecharModal(): void {
     this.isOpen = false;
