@@ -5,6 +5,16 @@
     <span>{{ mensagem.publicador?.nome }}</span>
     <div class="text-[10px] text-slate-600">{{ mensagem.criadoEm | date: 'dd/MM/yyyy HH:mm'}}</div>
   </div>
+  <div class="ml-auto relative">
+    <button (click)="toggleMenu()" class="text-xl text-gray-500">
+      <i class="ph ph-dots-three-vertical"></i>
+    </button>
+    <div *ngIf="menuAberto" class="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg">
+      <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+        Denunciar
+      </button>
+    </div>
+  </div>
   </div>
   <div class="flex flex-col gap-3 items-center">
     <p class="break-all text-justify text-xs">{{ mensagem.texto }}</p>
@@ -24,3 +34,8 @@
     </div>
   </div>
 </div>
+<app-modal-denuncia
+[isOpen]="menuAberto"
+[dto]=denunciaDTO
+(onClose)="menuAberto = false">
+</app-modal-denuncia>

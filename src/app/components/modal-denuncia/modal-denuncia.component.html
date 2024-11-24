@@ -1,0 +1,37 @@
+<div *ngIf="isOpen" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+    <h2 class="text-xl font-semibold mb-4">Denunciar mensagem</h2>
+    <form #denunciaForm="ngForm" (ngSubmit)="denunciarMensagem()">
+      <div class="mb-4">
+        <label for="motivo" class="block text-gray-700 font-medium mb-2">Motivo:</label>
+        <select
+          id="motivo"
+          class="form-control custom-border form-select w-full p-2 border rounded"
+          name="motivo"
+          [(ngModel)]="dto.motivo"
+          required
+          >
+          <option *ngFor="let motivo of motivosDenuncia" [ngValue]="motivo">
+            {{ motivo }}
+          </option>
+        </select>
+      </div>
+      <div class="flex justify-end gap-4">
+        <button
+          type="button"
+          (click)="onClose.emit()"
+          class="bg-gray-300 text-black px-4 py-2 rounded"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          [disabled]="!denunciaForm.valid"
+          class="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Salvar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

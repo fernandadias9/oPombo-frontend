@@ -15,7 +15,7 @@ import { AuthService } from '../../service/auth-service';
 export class ModalMensagemComponent implements OnInit {
   @Input() isOpen = false;
   @Output() onClose = new EventEmitter<void>();
-  @Output() onSaveSuccess = new EventEmitter<{texto: string, imagem: string | File | undefined}>();
+  @Output() onSaveSuccess = new EventEmitter<{ texto: string, imagem: string | File | undefined }>();
 
   public usuarioAutenticado!: Usuario;
   public mensagem: Mensagem = {
@@ -35,22 +35,22 @@ export class ModalMensagemComponent implements OnInit {
     private imagemService: ImagemService,
     private usuarioService: UsuarioService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
   }
 
-  getUsuarioAutenticado(): void {
-    const usuarioId = this.authService.getUserIdFromToken();
-    if(usuarioId) {
-      this.usuarioService.buscar(usuarioId).subscribe(
-        resposta => {
-          this.usuarioAutenticado = resposta;
-        }
-      )
+  // getUsuarioAutenticado(): void {
+  //   const usuarioId = this.authService.getUserIdFromToken();
+  //   if(usuarioId) {
+  //     this.usuarioService.buscar(usuarioId).subscribe(
+  //       resposta => {
+  //         this.usuarioAutenticado = resposta;
+  //       }
+  //     )
 
-    }
-  }
+  //   }
+  // }
 
   onImagemSelecionada(event: any) {
     const file: File = event.target.files[0];
@@ -86,32 +86,31 @@ export class ModalMensagemComponent implements OnInit {
   }
 
   salvarMensagem(): void {
-    this.mensagemService.salvar(this.mensagem).subscribe(
-      (resposta) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Sucesso',
-          text: 'Pruu salvo com sucesso.',
-          timer: 2000,
-          showConfirmButton: false
-        });
-        if (this.selectedFile) {
-          this.uploadImagem(resposta.id); // Faz o upload da imagem
-        } else {
-          this.fecharModal(); // Caso não haja imagem, retornamos
-        }
+    if (!this.mensagem.texto.trim()) {
+      Swal.fire('Erro', 'O texto da mensagem não pode estar vazio.', 'error');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append(
+      'mensagem',
+      new Blob([JSON.stringify(this.mensagem)], { type: 'application/json' })
+    );
+
+    if (this.selectedFile) {
+      formData.append('imagem', this.selectedFile, this.selectedFile.name);
+    }
+
+    this.mensagemService.salvar(formData).subscribe({
+      next: () => {
+        Swal.fire('Sucesso', 'Mensagem salva com sucesso!', 'success');
+        this.fecharModal();
       },
-      (erro) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Erro',
-          text: erro.message || 'Ocorreu um erro ao salvar o usuário.',
-          timer: 2000,
-          showConfirmButton: false
-        });
-      }
-    )
-    };
+      error: (erro) => {
+        Swal.fire('Erro', erro.error || 'Não foi possível salvar a mensagem.', 'error');
+      },
+    });
+  }
 
   fecharModal(): void {
     this.isOpen = false;

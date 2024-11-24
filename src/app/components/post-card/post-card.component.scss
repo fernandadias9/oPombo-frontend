@@ -1,0 +1,11 @@
+/* Estilos para o ícone de denúncia */
+.denuncia-icon {
+  font-size: 20px; /* Ajuste o tamanho do ícone conforme necessário */
+  color: #4A4A4A; /* Cor inicial do ícone */
+  transition: color 0.3s ease; /* Transição suave para a cor */
+}
+
+/* Efeito de hover */
+.denuncia-icon:hover {
+  color: #e74c3c; /* Cor vermelha quando o mouse passar sobre o ícone */
+}

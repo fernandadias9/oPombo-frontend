@@ -52,16 +52,6 @@ export class AuthService {
     localStorage.removeItem('tokenUsuarioAutenticado');
   }
 
-  getUserIdFromToken(): string | null {
-    const token = localStorage.getItem('tokenUsuarioAutenticado');
-
-    if (token) {
-      const decodedToken: any = jwtDecode(token);
-      return decodedToken.idUsuario;  // Retorna o userId
-    }
-    return null;
-  }
-
   getTipoFromToken(): string | null {
     const token = localStorage.getItem('tokenUsuarioAutenticado');
 

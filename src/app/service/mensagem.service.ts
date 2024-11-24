@@ -13,17 +13,17 @@ export class MensagemService {
 
   constructor(private http: HttpClient) {}
 
-  salvar(mensagem: Mensagem): Observable<any> {
-    return this.http.post<void>(this.apiUrl, mensagem);
+  salvar(formData: FormData): Observable<any> {
+    return this.http.post<Mensagem>(`${this.apiUrl}`, formData);
   }
 
   buscarMensagens(filtro: MensagemFiltro): Observable<Mensagem[]> {
     return this.http.post<Mensagem[]>(`${this.apiUrl}/filtro`, filtro);
   }
 
-  curtir(idUsuario: string, idMensagem: string): Observable<void> {
+  curtir(idMensagem: string): Observable<void> {
     return this.http.put<void>(
-      `${this.apiUrl}/curtir/${idUsuario}/${idMensagem}`,
+      `${this.apiUrl}/curtir/${idMensagem}`,
       {}
     );
   }
