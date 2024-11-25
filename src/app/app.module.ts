@@ -24,6 +24,8 @@ import { RequestInterceptor } from './auth/reques.interceptor';
 import { ModalMensagemComponent } from './components/modal-mensagem/modal-mensagem.component';
 import { ModalDenunciaComponent } from './components/modal-denuncia/modal-denuncia.component';
 import { DenunciasComponent } from './pages/denuncias/denuncias.component';
+import { DenunciaDetalheComponent } from './pages/denuncia-detalhe/denuncia-detalhe.component';
+import { SemPermissaoComponent } from './pages/sem-permissao/sem-permissao.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { DenunciasComponent } from './pages/denuncias/denuncias.component';
     //PerfilComponent,
     ModalMensagemComponent,
     ModalDenunciaComponent,
-    DenunciasComponent
+    DenunciasComponent,
+    DenunciaDetalheComponent,
+    SemPermissaoComponent
   ],
   imports: [
     BrowserModule,

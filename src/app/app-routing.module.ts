@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { CadastroUsuarioComponent } from './pages/cadastro-usuario/cadastro-usuario.component';
 import { FeedComponent } from './pages/feed/feed.component';
 import { DenunciasComponent } from './pages/denuncias/denuncias.component';
+import { DenunciaDetalheComponent } from './pages/denuncia-detalhe/denuncia-detalhe.component';
 //import { PerfilComponent } from './pages/perfil/perfil.component';
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'cadastro-usuario', component: CadastroUsuarioComponent },
   { path: 'feed', component: FeedComponent },
   { path: 'denuncias', component: DenunciasComponent },
+  { path: 'denuncias/:id', component: DenunciaDetalheComponent },
   //{ path: 'perfil', component: PerfilComponent}
 ];
 @NgModule({

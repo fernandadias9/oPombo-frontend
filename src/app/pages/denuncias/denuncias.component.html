@@ -1,44 +1,47 @@
-<div class="container mx-auto p-4">
-  <h1 class="text-xl font-bold mb-4">Listagem de Denúncias</h1>
+<div class="grid h-screen w-screen content-start">
+  <app-navbar></app-navbar>
+  <div class="container mx-auto p-4">
+    <h1 class="text-xl font-bold mb-4">Listagem de Denúncias</h1>
 
-  <!-- Filtros -->
-  <div class="grid grid-cols-2 gap-4 mb-4">
-    <input type="text" placeholder="Texto da mensagem" [(ngModel)]="filtro.texto" class="input">
-    <input type="text" placeholder="ID do denunciante" [(ngModel)]="filtro.idDenunciante" class="input">
-    <input type="date" [(ngModel)]="filtro.dataInicial" class="input">
-    <input type="date" [(ngModel)]="filtro.dataFinal" class="input">
-    <select [(ngModel)]="filtro.motivoDaDenuncia" class="input">
-      <option value="">Todos os Motivos</option>
-      <option value="PUBLICAO_OFENSIVA">Publicação Ofensiva</option>
-      <option value="INFORMACAO_FALSA">Informação Falsa</option>
-      <option value="PUBLICACAO_CALUNIOSA">Publicação Caluniosa</option>
-    </select>
-    <button class="btn btn-primary" (click)="buscarDenuncias()">Filtrar</button>
+    <!-- Filtros -->
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <input type="text" placeholder="Texto da mensagem" [(ngModel)]="filtro.texto" class="input">
+      <input type="text" placeholder="ID do denunciante" [(ngModel)]="filtro.idDenunciante" class="input">
+      <input type="date" [(ngModel)]="filtro.dataInicial" class="input">
+      <input type="date" [(ngModel)]="filtro.dataFinal" class="input">
+      <select [(ngModel)]="filtro.motivoDaDenuncia" class="input">
+        <option value="">Todos os Motivos</option>
+        <option value="PUBLICAO_OFENSIVA">Publicação Ofensiva</option>
+        <option value="INFORMACAO_FALSA">Informação Falsa</option>
+        <option value="PUBLICACAO_CALUNIOSA">Publicação Caluniosa</option>
+      </select>
+      <button class="btn btn-primary" (click)="buscarDenuncias()">Filtrar</button>
+    </div>
+
+    <!-- Tabela -->
+    <table class="table-auto w-full border-collapse border border-gray-200">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="border p-2">Pruu</th>
+          <th class="border p-2">Denunciante</th>
+          <th class="border p-2">Motivo</th>
+          <th class="border p-2">Data da Denúncia</th>
+          <th class="border p-2">Analisada</th>
+          <th class="border p-2">Analisar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let denuncia of denuncias">
+          <td class="border p-2">{{ denuncia.mensagem.texto.substring(0, 10) + '...' }}</td>
+          <td class="border p-2">{{ denuncia.usuario.nome }}</td>
+          <td class="border p-2">{{ denuncia.motivo }}</td>
+          <td class="border p-2">{{ denuncia.data | date:'short' }}</td>
+          <td class="border p-2">{{ denuncia.foiAnalisada ? 'Sim' : 'Não' }}</td>
+          <td class="border p-2 text-center">
+            <i class="ph ph-eye cursor-pointer text-blue-500" (click)="abrirDetalhes(denuncia.id)"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-
-  <!-- Tabela -->
-  <table class="table-auto w-full border-collapse border border-gray-200">
-    <thead>
-      <tr class="bg-gray-100">
-        <th class="border p-2">Pruu</th>
-        <th class="border p-2">Denunciante</th>
-        <th class="border p-2">Motivo</th>
-        <th class="border p-2">Data da Denúncia</th>
-        <th class="border p-2">Analisada</th>
-        <th class="border p-2">Analisar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let denuncia of denuncias">
-        <td class="border p-2">{{ denuncia.mensagem.texto.substring(0, 10) + '...' }}</td>
-        <td class="border p-2">{{ denuncia.usuario.nome }}</td>
-        <td class="border p-2">{{ denuncia.motivo }}</td>
-        <td class="border p-2">{{ denuncia.data | date:'short' }}</td>
-        <td class="border p-2">{{ denuncia.foiAnalisada ? 'Sim' : 'Não' }}</td>
-        <td class="border p-2 text-center">
-          <i class="ph ph-eye cursor-pointer text-blue-500" (click)="abrirDetalhes(denuncia.id)"></i>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </div>

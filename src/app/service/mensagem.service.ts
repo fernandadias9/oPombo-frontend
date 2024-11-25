@@ -36,4 +36,7 @@ export class MensagemService {
     return this.http.get<ListaMensagensDTO[]>(`${this.apiUrl}`);
   }
 
+  bloquear(id: string): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/bloqueio/${id}`, {})
+  }
 }

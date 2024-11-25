@@ -18,6 +18,10 @@ export class DenunciaService {
     return this.http.post(this.apiUrl, denunciaDTO);
   }
 
+  atualizar(denuncia: Denuncia): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/atualizar`, denuncia);
+  }
+
   // Buscar denúncia pelo ID
   buscar(id: string): Observable<Denuncia> {
     return this.http.get<Denuncia>(`${this.apiUrl}/${id}`);
@@ -46,5 +50,4 @@ export class DenunciaService {
   buscarDenunciasPorMensagem(idMensagem: string): Observable<Denuncia[]> {
     return this.http.get<Denuncia[]>(`${this.apiUrl}/mensagem/${idMensagem}`);
   }
-
 }
