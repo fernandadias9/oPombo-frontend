@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Denuncia } from '../model/entities/denuncia';
 import { DenunciaDTO } from '../model/dto/denunciaDto';
+import { DenunciaFiltro } from '../model/filtros/denunciaFiltro';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class DenunciaService {
   // Listar todas as denúncias completas
   listar(): Observable<Denuncia[]> {
     return this.http.get<Denuncia[]>(`${this.apiUrl}/todas`);
+  }
+
+  listarComFiltro(filtro: DenunciaFiltro): Observable<Denuncia[]> {
+    return this.http.post<Denuncia[]>(`${this.apiUrl}/filtro`, filtro);
   }
 
   // // Pesquisar denúncias com filtro

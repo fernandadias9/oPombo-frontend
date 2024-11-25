@@ -1,23 +1,29 @@
 import { TipoDeUsuario } from './../model/enums/tipoUsuario';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../model/entities/usuario';
 import { catchError, Observable, throwError } from 'rxjs';
 import { UsuarioDTO } from '../model/dto/usuarioDto';
-import {jwtDecode}  from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private readonly apiUrl = 'http://localhost:8080/opombo/auth';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   salvarUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(`${this.apiUrl}/novo-usuario`, usuario).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<Usuario>(`${this.apiUrl}/novo-usuario`, usuario)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -38,13 +44,19 @@ export class AuthService {
   autenticar(dto: UsuarioDTO): Observable<HttpResponse<string>> {
     const authHeader = 'Basic ' + btoa(`${dto.login}:${dto.senha}`);
     const headers = new HttpHeaders({
-      'Authorization': authHeader
+      Authorization: authHeader,
     });
 
-    return this.http.post<string>(this.apiUrl + "/authenticate", dto, {
+    if (this.getTipoFromToken() === 'ADMINISTRADOR') {
+      this.router.navigate(['/denuncias']);
+    } else {
+      this.router.navigate(['/feed']);
+    }
+
+    return this.http.post<string>(this.apiUrl + '/authenticate', dto, {
       headers,
       observe: 'response',
-      responseType: 'text' as 'json'
+      responseType: 'text' as 'json',
     });
   }
 
@@ -61,5 +73,4 @@ export class AuthService {
     }
     return null;
   }
-
 }

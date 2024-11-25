@@ -1,0 +1,33 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="profile-picture">
+      <img [src]="'data:image/jpeg;base64,' + user.fotoPerfil" alt="Foto de perfil" class="profile-img">
+      <input *ngIf="isEditMode" type="file" (change)="uploadProfilePicture($event)" class="file-input" />
+      <i *ngIf="isEditMode" class="edit-icon" (click)="uploadProfilePicture($event)">✎</i>
+    </div>
+    <div class="profile-info">
+      <form [formGroup]="profileForm">
+        <div class="form-group">
+          <label for="nome">Nome</label>
+          <input id="nome" formControlName="nome" [readonly]="!isEditMode" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" formControlName="email" [readonly]="!isEditMode" type="email" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="cpf">CPF</label>
+          <input id="cpf" formControlName="cpf" [readonly]="true" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input id="senha" formControlName="senha" [readonly]="true" type="password" class="form-control">
+        </div>
+      </form>
+    </div>
+    <button (click)="toggleEditMode()" class="btn btn-primary">
+      {{ isEditMode ? 'Salvar' : 'Editar' }}
+    </button>
+    <button *ngIf="isEditMode" (click)="saveProfile()" class="btn btn-success">Salvar</button>
+  </div>
+</div>

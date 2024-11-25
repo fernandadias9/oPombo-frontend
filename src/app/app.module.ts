@@ -23,6 +23,7 @@ import { RequestInterceptor } from './auth/reques.interceptor';
 //import { PerfilComponent } from './pages/perfil/perfil.component';
 import { ModalMensagemComponent } from './components/modal-mensagem/modal-mensagem.component';
 import { ModalDenunciaComponent } from './components/modal-denuncia/modal-denuncia.component';
+import { DenunciasComponent } from './pages/denuncias/denuncias.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ModalDenunciaComponent } from './components/modal-denuncia/modal-denunc
     PostCardComponent,
     //PerfilComponent,
     ModalMensagemComponent,
-    ModalDenunciaComponent
+    ModalDenunciaComponent,
+    DenunciasComponent
   ],
   imports: [
     BrowserModule,
