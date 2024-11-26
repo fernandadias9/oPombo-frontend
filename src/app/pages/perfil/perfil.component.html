@@ -1,28 +1,23 @@
 <div class="grid h-screen w-screen content-start">
   <app-navbar></app-navbar>
-  <form>
-    <div class="profile-picture">
-      <img [src]="'data:image/jpeg;base64,' + usuarioDto?.fotoPerfil" alt="Foto de perfil" class="profile-img">
-      <input *ngIf="isEditMode" type="file" (change)="uploadImagem()" class="file-input" />
-      <i *ngIf="isEditMode" class="edit-icon" (click)="uploadImagem()">✎</i>
-    </div>
-    <div class="flex gap-3">
-      <div class="grid gap-1">
-        <app-input label="Nome" for="nome" id="nome" type="text" readonly=!isEditMode [(ngModel)]="usuarioDto.nome" name="nome"></app-input>
+  <div class="grid justify-center pt-16">
+    <form class="grid justify-items-center gap-6">
+      <div class="grid gap-4 justify-items-center">
+        <img *ngIf="usuario?.fotoPerfil" [src]="'data:image/jpeg;base64,' + usuarioDto?.fotoPerfil" alt="Foto de perfil" class="profile-img rounded-full w-20 h-20">
+        <img *ngIf="!usuario?.fotoPerfil" src="/avatar.jpeg"
+                 alt="Foto Padrão" class="rounded-full w-24 h-24 border-double border-2 border-gray-300"/>
+                <input *ngIf="isEditMode" type="file" (change)="uploadImagem()" class="file-input" />
       </div>
-      <div class="grid gap-1">
-        <app-input label="Email" for="email" id="email" type="email" readonly="!isEditMode" [(ngModel)]="usuarioDto.email" name="email"></app-input>
+      <div class="grid gap-3">
+          <app-input label="Nome" for="nome" id="nome" type="text" [disabled]="!isEditMode" [(ngModel)]="usuarioDto.nome" name="nome"></app-input>
+          <app-input label="Email" for="email" id="email" type="email" [disabled]="!isEditMode" [(ngModel)]="usuarioDto.email" name="email"></app-input>
+          <app-input label="CPF" for="cpf" id="cpf" type="text" [disabled]="true" [(ngModel)]="usuarioDto.cpf" name="cpf"></app-input>
+          <div class="flex gap-2">
+            <app-confirm-button *ngIf="!isEditMode" (click)="toggleEditMode()" label="Editar"></app-confirm-button>
+            <app-confirm-button *ngIf="isEditMode" (click)="saveProfile()"  label="Salvar"></app-confirm-button>
+            <app-cancel-button label="Cancelar" (click)="cancelarEdicao()"></app-cancel-button>
+          </div>
       </div>
-    </div>
-
-    <div class="flex gap-3">
-      <div class="grid gap-1">
-        <app-input label="CPF" for="cpf" id="cpf" type="text" readonly="true" [(ngModel)]="usuarioDto.cpf" name="cpf"></app-input>
-      </div>
-    </div>
-    <button *ngIf="!isEditMode" (click)="toggleEditMode()" class="btn btn-primary">
-      Editar
-    </button>
-    <button *ngIf="isEditMode" (click)="saveProfile()" class="btn btn-success">Salvar</button>
-  </form>
+    </form>
+  </div>
 </div>

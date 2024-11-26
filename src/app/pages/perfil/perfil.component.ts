@@ -4,8 +4,9 @@ import { UsuarioService } from '../../service/usuario.service';
 import { Usuario } from '../../model/entities/usuario';
 import { ImagemService } from '../../service/imagem.service';
 import Swal from 'sweetalert2';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioDTO } from '../../model/dto/usuarioDto';
+import { TipoDeUsuario } from '../../model/enums/tipoUsuario';
 
 @Component({
   selector: 'app-perfil',
@@ -23,9 +24,9 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuarioService,
-    private fb: FormBuilder,
     private imagemService: ImagemService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -107,5 +108,13 @@ export class PerfilComponent implements OnInit {
         Swal.fire('Erro', erro.error || 'Não foi possível atualizar usuário.', 'error');
       },
     })
+  }
+
+  cancelarEdicao() {
+    if(this.usuario.tipoUsuario === TipoDeUsuario.ADMINISTRADOR) {
+      this.router.navigate(['/denuncias']);
+    } else {
+      this.router.navigate(['/feed']);
+    }
   }
 }
