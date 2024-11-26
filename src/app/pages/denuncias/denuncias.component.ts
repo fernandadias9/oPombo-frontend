@@ -20,10 +20,6 @@ export class DenunciasComponent {
   paginaAtual = 1;
   totalDenuncias!: number;
   public seletor: DenunciaFiltro = new DenunciaFiltro();
-  motivos = Object.keys(MotivoDaDenuncia).map(key => ({
-    label: key.replace(/_/g, ' ').toLowerCase(),
-    value: MotivoDaDenuncia[key as keyof typeof MotivoDaDenuncia]
-  }));
 
   constructor(private denunciaService: DenunciaService, private router: Router) { }
 
@@ -36,6 +32,8 @@ export class DenunciasComponent {
       resultado => {
         this.denuncias = resultado;
         this.totalDenuncias = resultado.length;
+        console.log('entrou aqui');
+
       }
     );
   }

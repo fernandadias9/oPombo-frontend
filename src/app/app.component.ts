@@ -18,6 +18,14 @@ export class AppComponent implements OnInit {
 
     if (!token) {
       this.router.navigate(['/login']);
-    } 
+    } else {
+      const tipoUsuarioAutenticado = this.authService.getTipoFromToken();
+      
+      if (tipoUsuarioAutenticado === 'ADMINISTRADOR') {
+        this.router.navigate(['/denuncias']);
+      } else {
+        this.router.navigate(['/feed']);
+      }
+    }
   }
 }
