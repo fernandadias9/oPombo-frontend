@@ -6,7 +6,7 @@
         <img *ngIf="usuario?.fotoPerfil" [src]="'data:image/jpeg;base64,' + usuarioDto?.fotoPerfil" alt="Foto de perfil" class="profile-img rounded-full w-20 h-20">
         <img *ngIf="!usuario?.fotoPerfil" src="/avatar.jpeg"
                  alt="Foto Padrão" class="rounded-full w-24 h-24 border-double border-2 border-gray-300"/>
-                <input *ngIf="isEditMode" type="file" (change)="uploadImagem()" class="file-input" />
+                <input *ngIf="isEditMode" type="file" (change)="onImagemSelecionada($event)" class="file-input" />
       </div>
       <div class="grid gap-3">
           <app-input label="Nome" for="nome" id="nome" type="text" [disabled]="!isEditMode" [(ngModel)]="usuarioDto.nome" name="nome"></app-input>
