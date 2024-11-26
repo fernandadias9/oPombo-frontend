@@ -55,6 +55,7 @@ export class AuthService {
 
   sair() {
     localStorage.removeItem('tokenUsuarioAutenticado');
+    this.router.navigate(['/login']);
   }
 
   getTipoFromToken(): string | null {

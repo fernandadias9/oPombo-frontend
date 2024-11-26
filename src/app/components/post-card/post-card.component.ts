@@ -1,13 +1,12 @@
-import { Usuario } from './../../model/entities/usuario';
-import { Denuncia } from './../../model/entities/denuncia';
-import { AuthService } from './../../service/auth-service';
-import { MensagemService } from '../../service/mensagem.service';
-import { Mensagem } from './../../model/entities/mensagem';
 import { Component, Input, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import { DenunciaService } from '../../service/denuncia.service';
 import { DenunciaDTO } from '../../model/dto/denunciaDto';
+import { DenunciaService } from '../../service/denuncia.service';
+import { MensagemService } from '../../service/mensagem.service';
 import { UsuarioService } from '../../service/usuario.service';
+import { Mensagem } from './../../model/entities/mensagem';
+import { Usuario } from './../../model/entities/usuario';
+import { AuthService } from './../../service/auth-service';
 
 @Component({
   selector: 'app-post-card',
@@ -26,16 +25,15 @@ export class PostCardComponent implements OnInit {
 
   constructor(
     private mensagemService: MensagemService,
-    private authService: AuthService,
-    private denunciaService: DenunciaService,
     private usuarioService: UsuarioService
   ) { }
 
   ngOnInit(): void {
-    this.getUsuarioAutenticadoCurtiu();
     this.usuarioService.getAuthenticatedUser().subscribe({
       next: (data) => {
         this.usuarioAutenticado = data;
+        this.usuarioAutenticadoId = this.usuarioAutenticado.id; // Atribui o ID do usuário autenticado
+        this.getUsuarioAutenticadoCurtiu(); // Agora que temos o ID do usuário autenticado, podemos chamar o método
       },
       error: (error) => {
         console.error('Erro ao obter usuário autenticado', error);
@@ -48,6 +46,8 @@ export class PostCardComponent implements OnInit {
       (usuario) => usuario.id === this.usuarioAutenticadoId
     )) {
       this.usuarioAutenticadoCurtiu = true;
+    } else {
+      this.usuarioAutenticadoCurtiu = false;
     }
   }
 
