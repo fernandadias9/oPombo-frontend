@@ -8,25 +8,23 @@
       <app-input type="date" label="" [(ngModel)]="filtro.dataFinal" name="dataFinal"></app-input>
       <label for="curtido">
         Curtidas
-      <input type="checkbox" [(ngModel)]="filtro.curtido" (change)="toggleCurtida($event)" name="curtido"/>
+        <input type="checkbox" [(ngModel)]="filtro.curtido" (change)="toggleCurtida($event)" name="curtido" />
       </label>
       <app-confirm-button label="Filtrar"></app-confirm-button>
       <app-cancel-button label="Limpar" (click)="limpar()"></app-cancel-button>
     </form>
     <div class="flex items-center justify-center mb-4">
-      <button (click)="abrirModalCriarPruu()" class="flex items-center gap-2 p-2 bg-transparent hover:scale-110 transition duration-300 ease-in-out text-white">
+      <button (click)="abrirModalCriarPruu()"
+        class="flex items-center gap-2 p-2 bg-transparent hover:scale-110 transition duration-300 ease-in-out text-white">
         <i class="ph ph-bird text-4xl w-auto text-black"></i>
         <span class="text-xl text-black">Criar Pruu</span>
       </button>
     </div>
 
-    <app-modal-mensagem
-      [isOpen]="modalAberto"
-      (onClose)="fecharModal()"
-      (onSaveSuccess)="carregarMensagens()">
+    <app-modal-mensagem [isOpen]="modalAberto" (onClose)="fecharModal()" (onSaveSuccess)="carregarMensagens()">
     </app-modal-mensagem>
 
-      <div *ngIf="!modalAberto" class="grid gap-6 justify-center">
+    <div *ngIf="!modalAberto" class="grid gap-6 justify-center">
       <app-post-card *ngFor="let mensagem of mensagens" [mensagem]="mensagem"></app-post-card>
     </div>
 

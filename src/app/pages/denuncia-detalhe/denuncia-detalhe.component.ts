@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Denuncia } from '../../model/entities/denuncia';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DenunciaService } from '../../service/denuncia.service';
-import { jwtDecode } from 'jwt-decode';
 import { MensagemService } from '../../service/mensagem.service';
 import Swal from 'sweetalert2';
 

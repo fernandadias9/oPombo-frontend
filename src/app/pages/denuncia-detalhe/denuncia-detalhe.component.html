@@ -1,17 +1,21 @@
 <div class="grid h-screen w-screen content-start">
   <app-navbar></app-navbar>
-  <div class="container mx-auto p-4">
-    <h1 class="text-xl font-bold mb-4">Detalhes da Denúncia</h1>
-    <div class="mb-4">
-      <p><strong>Mensagem:</strong> {{ denuncia?.mensagem?.texto }}</p>
-      <p><strong>Denunciante:</strong> {{ denuncia?.usuario?.nome }}</p>
-      <p><strong>Motivo:</strong> {{ denuncia?.motivo }}</p>
-      <p><strong>Data:</strong> {{ denuncia?.data | date: 'short' }}</p>
-      <p><strong>Foi analisada:</strong> {{ denuncia?.foiAnalisada ? 'Sim' : 'Não' }}</p>
-    </div>
-    <div class="flex gap-4">
-      <button class="btn btn-success" (click)="aceitarDenuncia()">Aceitar Denúncia</button>
-      <button class="btn btn-danger" (click)="recusarDenuncia()">Recusar Denúncia</button>
+  <div class="flex items-center">
+    <div class="relative grid gap-4 w-1/2 h-10/12 mt-20 mx-auto drop-shadow-[0_3px_3px_#8b8b8b] rounded-xl px-8 py-4 bg-gray-200">
+      <div class="grid mx-auto p-4">
+        <h3 class="underline">Detalhes da Denúncia</h3>
+        <div class="justify-self-start mb-4 mt-5">
+          <p><strong>Mensagem:</strong> {{ denuncia?.mensagem?.texto }}</p>
+          <p><strong>Denunciante:</strong> {{ denuncia?.usuario?.nome }}</p>
+          <p><strong>Motivo:</strong> {{ denuncia?.motivo }}</p>
+          <p><strong>Data:</strong> {{ denuncia?.data | date: 'short' }}</p>
+          <p><strong>Foi analisada:</strong> {{ denuncia?.foiAnalisada ? 'Sim' : 'Não' }}</p>
+        </div>
+        <div class="flex gap-4">
+          <button class="bg-white hover:bg-blue-400 text-blue-700 hover:text-white grid place-content-center h-8 py-1 px-3 border-2 border-[#172554] hover:border-transparent rounded-lg" (click)="aceitarDenuncia()">Aceitar Denúncia</button>
+          <button class="bg-white hover:bg-red-400 text-red-500 hover:text-white grid place-content-center h-8 py-1 px-3 border-2 border-red-700 hover:border-transparent rounded-lg" (click)="recusarDenuncia()">Recusar Denúncia</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
