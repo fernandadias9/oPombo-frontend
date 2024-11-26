@@ -35,7 +35,7 @@ export class CadastroUsuarioComponent {
           timer: 2000,
           showConfirmButton: false
         });
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
       },
       error: (error) => {
         Swal.fire({

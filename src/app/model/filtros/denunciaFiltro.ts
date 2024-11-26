@@ -5,4 +5,6 @@ export class DenunciaFiltro {
   dataFinal?: string;
   motivoDaDenuncia?: string;
   foiAnalisada?: boolean;
+  pagina?: number;
+  limite?: number;
 }

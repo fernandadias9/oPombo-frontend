@@ -3,6 +3,8 @@ import { DenunciaFiltro } from '../../model/filtros/denunciaFiltro';
 import { Router } from '@angular/router';
 import { DenunciaService } from '../../service/denuncia.service';
 import { Denuncia } from '../../model/entities/denuncia';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MotivoDaDenuncia } from '../../model/enums/motivoDaDenuncia';
 
 @Component({
   selector: 'app-denuncias',
@@ -11,18 +13,35 @@ import { Denuncia } from '../../model/entities/denuncia';
 })
 export class DenunciasComponent {
   denuncias: Denuncia[] = [];
-  filtro = new DenunciaFiltro();
+  filtro: DenunciaFiltro = {
+    pagina: 1,
+    limite: 30,
+  };
+  paginaAtual = 1;
+  totalDenuncias!: number;
+  public seletor: DenunciaFiltro = new DenunciaFiltro();
+  motivos = Object.keys(MotivoDaDenuncia).map(key => ({
+    label: key.replace(/_/g, ' ').toLowerCase(),
+    value: MotivoDaDenuncia[key as keyof typeof MotivoDaDenuncia]
+  }));
 
-  constructor(private denunciaService: DenunciaService, private router: Router) {}
+  constructor(private denunciaService: DenunciaService, private router: Router) { }
 
   ngOnInit(): void {
-    this.buscarDenuncias();
+    this.listarDenuncias();
   }
 
-  buscarDenuncias(): void {
-    this.denunciaService.listarComFiltro(this.filtro).subscribe((data) => {
-      this.denuncias = data;
-    });
+  public listarDenuncias(): void {
+    this.denunciaService.listarComFiltro(this.filtro).subscribe(
+      resultado => {
+        this.denuncias = resultado;
+        this.totalDenuncias = resultado.length;
+      }
+    );
+  }
+
+  public limpar() {
+    this.seletor = new DenunciaFiltro();
   }
 
   abrirDetalhes(idMensagem: string, idUsuario: string): void {

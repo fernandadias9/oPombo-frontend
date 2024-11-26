@@ -4,19 +4,19 @@
     <h1 class="text-xl font-bold mb-4">Listagem de Denúncias</h1>
 
     <!-- Filtros -->
-    <div class="grid grid-cols-2 gap-4 mb-4">
-      <input type="text" placeholder="Texto da mensagem" [(ngModel)]="filtro.texto" class="input">
-      <input type="text" placeholder="ID do denunciante" [(ngModel)]="filtro.idDenunciante" class="input">
-      <input type="date" [(ngModel)]="filtro.dataInicial" class="input">
-      <input type="date" [(ngModel)]="filtro.dataFinal" class="input">
+    <form (ngSubmit)="listarDenuncias()" class="flex gap-5 items-end mb-8">
+      <app-input label="Mensagem" [(ngModel)]="filtro.texto" name="texto"></app-input>
+      <app-input type="date" label="" [(ngModel)]="filtro.dataInicial" name="dataInicial"></app-input>
+      <app-input type="date" label="" [(ngModel)]="filtro.dataFinal" name="dataFinal"></app-input>
       <select [(ngModel)]="filtro.motivoDaDenuncia" class="input">
-        <option value="">Todos os Motivos</option>
+        <option selected value="">Todos os Motivos</option>
         <option value="PUBLICAO_OFENSIVA">Publicação Ofensiva</option>
         <option value="INFORMACAO_FALSA">Informação Falsa</option>
         <option value="PUBLICACAO_CALUNIOSA">Publicação Caluniosa</option>
       </select>
-      <button class="btn btn-primary" (click)="buscarDenuncias()">Filtrar</button>
-    </div>
+      <app-confirm-button label="Filtrar"></app-confirm-button>
+    </form>
+
 
     <!-- Tabela -->
     <table class="table-auto w-full border-collapse border border-gray-200">
@@ -32,7 +32,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let denuncia of denuncias">
-          <td class="border p-2">{{ denuncia.mensagem.texto.substring(0, 10) + '...' }}</td>
+          <td class="border p-2">{{ denuncia.mensagem.texto.substring(0, 20) + '...' }}</td>
           <td class="border p-2">{{ denuncia.usuario.nome }}</td>
           <td class="border p-2">{{ denuncia.motivo }}</td>
           <td class="border p-2">{{ denuncia.data | date:'short' }}</td>

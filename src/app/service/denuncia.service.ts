@@ -18,8 +18,8 @@ export class DenunciaService {
     return this.http.post(this.apiUrl, denunciaDTO);
   }
 
-  atualizar(denuncia: Denuncia): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/atualizar`, denuncia);
+  atualizarDenuncia(idMensagem: string, idUsuario: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${idMensagem}/${idUsuario}?foiAnalisada=true`, null);
   }
 
   // Buscar denúncia pelo ID
