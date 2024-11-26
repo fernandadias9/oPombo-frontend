@@ -21,6 +21,10 @@ export class MensagemService {
     return this.http.post<Mensagem[]>(`${this.apiUrl}/filtro`, filtro);
   }
 
+  excluirMensagem(idMensagem: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${idMensagem}`);
+  }
+
   curtir(idMensagem: string): Observable<void> {
     return this.http.put<void>(
       `${this.apiUrl}/curtir/${idMensagem}`,

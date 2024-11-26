@@ -5,6 +5,8 @@ import { MensagemService } from '../../service/mensagem.service';
 import { PageEvent } from '@angular/material/paginator';
 import { ListaMensagensDTO } from '../../model/dto/mensagemDto';
 import { AuthService } from '../../service/auth-service';
+import { UsuarioService } from '../../service/usuario.service';
+import { Usuario } from '../../model/entities/usuario';
 
 @Component({
   selector: 'app-feed',
@@ -21,11 +23,27 @@ export class FeedComponent implements OnInit {
   totalMensagens!: number;
   modalAberto = false;
   public seletor: MensagemFiltro = new MensagemFiltro();
+  usuarioAutenticado!: Usuario;
+  isAuthenticated: boolean = false;
+  router: any;
 
-  constructor(private mensagemService: MensagemService) {}
+  constructor(
+    private mensagemService: MensagemService,
+    private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
     this.carregarMensagens();
+    this.usuarioService.getAuthenticatedUser().subscribe({
+      next: (data) => {
+        this.usuarioAutenticado = data;
+        this.isAuthenticated = true;
+      },
+      error: (error) => {
+        console.error('Erro ao obter usuário autenticado', error);
+        this.isAuthenticated = false;
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   public carregarMensagens(): void {

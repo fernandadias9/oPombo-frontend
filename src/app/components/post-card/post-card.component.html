@@ -1,41 +1,39 @@
 <div class="grid gap-4 max-w-lg max-h-96 drop-shadow-[0_3px_3px_#8b8b8b] rounded-xl px-8 py-6 size-content bg-gray-200">
   <div class="flex gap-2 items-start">
-    <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-  <div class="pt-1">
-    <span>{{ mensagem?.publicador?.nome }}</span>
-    <div class="text-[10px] text-slate-600">{{ mensagem.criadoEm | date: 'dd/MM/yyyy HH:mm'}}</div>
-  </div>
-  <div class="ml-auto relative">
-    <button (click)="toggleMenu()" class="text-xl text-gray-500">
-      <i class="ph ph-dots-three-vertical"></i>
-    </button>
-    <div *ngIf="menuAberto" class="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg">
-      <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-        Denunciar
-      </button>
+    <img *ngIf="mensagem.publicador.fotoPerfil" [src]="'data:image/jpeg;base64,' + mensagem.publicador.fotoPerfil"
+      class="h-8 w-8 rounded-full" alt="Foto de Perfil">
+    <div class="pt-1">
+      <span>{{ mensagem.publicador.nome }}</span>
+      <div class="text-[10px] text-slate-600">{{ mensagem.criadoEm | date: 'dd/MM/yyyy HH:mm'}}</div>
     </div>
-  </div>
+    <div class="ml-auto relative">
+      <button (click)="toggleMenu()" class="text-xl text-gray-500">
+        <i class="ph ph-dots-three-vertical"></i>
+      </button>
+      <div *ngIf="menuAberto" class="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg">
+        <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          (click)="abrirModalDenuncia()">
+          Denunciar
+        </button>
+        <button *ngIf="isUsuarioAutenticado()" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100"
+          (click)="excluirMensagem()">
+          Excluir
+        </button>
+      </div>
+    </div>
   </div>
   <div class="flex flex-col gap-3 items-center">
     <p class="break-all text-justify text-xs">{{ mensagem.texto }}</p>
     <div>
       <img *ngIf="mensagem.imagem" [src]="'data:image/jpeg;base64,' + mensagem.imagem" alt="Imagem da Mensagem"
-                             class="img-thumbnail" style="max-width: 50px; max-height: 50px; object-fit: contain; cursor: pointer;"
-                             (click)="exibirImagemGrande(mensagem.imagem)">
+        class="img-thumbnail" style="max-width: 50px; max-height: 50px; object-fit: contain; cursor: pointer;"
+        (click)="exibirImagemGrande(mensagem.imagem)">
     </div>
     <div class="flex gap-1 w-full justify-start">
-      <i
-        class="ph cursor-pointer"
-        [class.ph-feather]="!usuarioAutenticadoCurtiu"
-        [class.ph-bird]="usuarioAutenticadoCurtiu"
-        (click)="curtir()"
-      ></i>
+      <i class="ph cursor-pointer" [class.ph-feather]="!usuarioAutenticadoCurtiu"
+        [class.ph-bird]="usuarioAutenticadoCurtiu" (click)="curtir()"></i>
       <p class="text-xs">{{ mensagem.qtdeLikes }} curtidas</p>
     </div>
   </div>
 </div>
-<app-modal-denuncia
-[isOpen]="menuAberto"
-[dto]=denunciaDTO
-(onClose)="menuAberto = false">
-</app-modal-denuncia>
+<app-modal-denuncia [isOpen]="modalAberto" [dto]="denunciaDTO" (onClose)="fecharModalDenuncia()"></app-modal-denuncia>
