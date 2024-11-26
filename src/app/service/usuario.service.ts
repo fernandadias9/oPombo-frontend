@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../model/entities/usuario';
+import { UsuarioDTO } from '../model/dto/usuarioDto';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class UsuarioService {
     return this.http.get<Usuario>(this.apiUrl + '/autenticado');
   }
 
-  updateUser(user: Usuario): Observable<Usuario> {
-    return this.http.put<Usuario>(this.apiUrl, user);
+  updateUser(user: UsuarioDTO): Observable<any> {
+    return this.http.put(`${this.apiUrl}/atualizar`, user);
   }
 
   uploadProfileImage(formData: FormData): Observable<any> {

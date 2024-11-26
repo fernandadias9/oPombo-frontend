@@ -1,4 +1,3 @@
-import { TipoDeUsuario } from './../model/enums/tipoUsuario';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -8,9 +7,9 @@ import {
 import { Injectable } from '@angular/core';
 import { Usuario } from '../model/entities/usuario';
 import { catchError, Observable, throwError } from 'rxjs';
-import { UsuarioDTO } from '../model/dto/usuarioDto';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
+import { UsuarioLoginDTO } from '../model/dto/usuarioLoginDto';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +40,7 @@ export class AuthService {
     return throwError(() => new Error(errorMessage));
   }
 
-  autenticar(dto: UsuarioDTO): Observable<HttpResponse<string>> {
+  autenticar(dto: UsuarioLoginDTO): Observable<HttpResponse<string>> {
     const authHeader = 'Basic ' + btoa(`${dto.login}:${dto.senha}`);
     const headers = new HttpHeaders({
       Authorization: authHeader,

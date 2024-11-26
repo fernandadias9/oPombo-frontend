@@ -1,33 +1,28 @@
-<div class="profile-container">
-  <div class="profile-header">
+<div class="grid h-screen w-screen content-start">
+  <app-navbar></app-navbar>
+  <form>
     <div class="profile-picture">
-      <img [src]="'data:image/jpeg;base64,' + user.fotoPerfil" alt="Foto de perfil" class="profile-img">
-      <input *ngIf="isEditMode" type="file" (change)="uploadProfilePicture($event)" class="file-input" />
-      <i *ngIf="isEditMode" class="edit-icon" (click)="uploadProfilePicture($event)">✎</i>
+      <img [src]="'data:image/jpeg;base64,' + usuarioDto?.fotoPerfil" alt="Foto de perfil" class="profile-img">
+      <input *ngIf="isEditMode" type="file" (change)="uploadImagem()" class="file-input" />
+      <i *ngIf="isEditMode" class="edit-icon" (click)="uploadImagem()">✎</i>
     </div>
-    <div class="profile-info">
-      <form [formGroup]="profileForm">
-        <div class="form-group">
-          <label for="nome">Nome</label>
-          <input id="nome" formControlName="nome" [readonly]="!isEditMode" type="text" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input id="email" formControlName="email" [readonly]="!isEditMode" type="email" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="cpf">CPF</label>
-          <input id="cpf" formControlName="cpf" [readonly]="true" type="text" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="senha">Senha</label>
-          <input id="senha" formControlName="senha" [readonly]="true" type="password" class="form-control">
-        </div>
-      </form>
+    <div class="flex gap-3">
+      <div class="grid gap-1">
+        <app-input label="Nome" for="nome" id="nome" type="text" readonly=!isEditMode [(ngModel)]="usuarioDto.nome" name="nome"></app-input>
+      </div>
+      <div class="grid gap-1">
+        <app-input label="Email" for="email" id="email" type="email" readonly="!isEditMode" [(ngModel)]="usuarioDto.email" name="email"></app-input>
+      </div>
     </div>
-    <button (click)="toggleEditMode()" class="btn btn-primary">
-      {{ isEditMode ? 'Salvar' : 'Editar' }}
+
+    <div class="flex gap-3">
+      <div class="grid gap-1">
+        <app-input label="CPF" for="cpf" id="cpf" type="text" readonly="true" [(ngModel)]="usuarioDto.cpf" name="cpf"></app-input>
+      </div>
+    </div>
+    <button *ngIf="!isEditMode" (click)="toggleEditMode()" class="btn btn-primary">
+      Editar
     </button>
     <button *ngIf="isEditMode" (click)="saveProfile()" class="btn btn-success">Salvar</button>
-  </div>
+  </form>
 </div>

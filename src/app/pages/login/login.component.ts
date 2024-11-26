@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { UsuarioDTO } from '../../model/dto/usuarioDto';
 import { AuthService } from '../../service/auth-service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UsuarioLoginDTO } from '../../model/dto/usuarioLoginDto';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  public usuarioDto: UsuarioDTO = {
+  public usuarioLoginDto: UsuarioLoginDTO = {
     login: '',
     senha: '',
   };
@@ -28,7 +28,7 @@ export class LoginComponent {
   }
 
   public realizarLogin() {
-    this.authService.autenticar(this.usuarioDto).subscribe({
+    this.authService.autenticar(this.usuarioLoginDto).subscribe({
       next: (jwt) => {
         Swal.fire({
           icon: 'success',

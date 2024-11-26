@@ -70,7 +70,7 @@ export class ModalMensagemComponent implements OnInit {
     }
   }
 
-  uploadImagem(cartaId: number): void {
+  uploadImagem(): void {
     const formData = new FormData();
     formData.append('imagem', this.selectedFile!, this.selectedFile!.name);
 

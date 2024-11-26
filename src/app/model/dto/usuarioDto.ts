@@ -1,4 +1,10 @@
+import { TipoDeUsuario } from "../enums/tipoUsuario";
+
 export class UsuarioDTO {
-  login: string | undefined;
-  senha: string | undefined;
+  id!: string;
+  nome!: string;
+  email!: string;
+  cpf!: string;
+  tipo!: TipoDeUsuario;
+  fotoPerfil?: string | null;
 }
