@@ -13,11 +13,18 @@ import { Usuario } from '../../model/entities/usuario';
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.scss'
 })
+
 export class FeedComponent implements OnInit {
   mensagens: Mensagem[] = [];
   filtro: MensagemFiltro = {
+    texto: '',
+    idUsuario: '',
+    nomePublicador: '',
+    dataInicial: '',
+    dataFinal: '',
+    curtido: false,
     pagina: 1,
-    limite: 30,
+    limite: 30
   };
   paginaAtual = 1;
   totalMensagens!: number;
@@ -29,7 +36,7 @@ export class FeedComponent implements OnInit {
 
   constructor(
     private mensagemService: MensagemService,
-    private usuarioService: UsuarioService) {}
+    private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
     this.carregarMensagens();
@@ -76,5 +83,11 @@ export class FeedComponent implements OnInit {
 
   public limpar() {
     this.filtro = new MensagemFiltro();
+  }
+
+  toggleCurtida(event: any) {
+    const isCurtido = event.target.checked;
+    this.filtro.curtido = isCurtido;
+    this.filtro.idUsuario = isCurtido ? this.usuarioAutenticado.id : '';
   }
 }

@@ -18,6 +18,7 @@ export class MensagemService {
   }
 
   buscarMensagens(filtro: MensagemFiltro): Observable<Mensagem[]> {
+
     return this.http.post<Mensagem[]>(`${this.apiUrl}/filtro`, filtro);
   }
 

@@ -47,6 +47,6 @@ export class NavbarComponent implements OnInit {
   }
 
   editarPerfil(idUsuario: string) {
-    this.router.navigate(['/perfil/', idUsuario]);
+    this.router.navigate(['/perfil', this.idUsuarioAutenticado]);
   }
 }
