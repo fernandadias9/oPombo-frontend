@@ -1,4 +1,19 @@
-<div class="grid gap-4 max-w-lg max-h-96 drop-shadow-[0_3px_3px_#8b8b8b] rounded-xl px-8 py-6 size-content bg-gray-200">
+<div class="relative grid gap-4 w-96 max-h-96 drop-shadow-[0_3px_3px_#8b8b8b] rounded-xl px-8 py-4 bg-gray-200">
+  <div class="absolute top-2 right-1">
+    <button (click)="toggleMenu()" class="text-xl text-gray-500">
+      <i class="ph ph-dots-three-vertical"></i>
+    </button>
+    <div *ngIf="menuAberto" class="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg">
+      <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+        (click)="abrirModalDenuncia()">
+        Denunciar
+      </button>
+      <button *ngIf="isUsuarioAutenticado()" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100"
+        (click)="excluirMensagem()">
+        Excluir
+      </button>
+    </div>
+  </div>
   <div class="flex gap-2 items-start">
     <img *ngIf="mensagem?.publicador?.fotoPerfil" [src]="'data:image/jpeg;base64,' + mensagem?.publicador?.fotoPerfil"
       class="h-8 w-8 rounded-full" alt="Foto de Perfil">
@@ -6,27 +21,12 @@
       <span>{{ mensagem?.publicador?.nome }}</span>
       <div class="text-[10px] text-slate-600">{{ mensagem.criadoEm | date: 'dd/MM/yyyy HH:mm'}}</div>
     </div>
-    <div class="ml-auto relative">
-      <button (click)="toggleMenu()" class="text-xl text-gray-500">
-        <i class="ph ph-dots-three-vertical"></i>
-      </button>
-      <div *ngIf="menuAberto" class="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg">
-        <button class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-          (click)="abrirModalDenuncia()">
-          Denunciar
-        </button>
-        <button *ngIf="isUsuarioAutenticado()" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-100"
-          (click)="excluirMensagem()">
-          Excluir
-        </button>
-      </div>
-    </div>
   </div>
   <div class="flex flex-col gap-3 items-center">
     <p class="break-all text-justify text-xs">{{ mensagem.texto }}</p>
     <div>
       <img *ngIf="mensagem.imagem" [src]="'data:image/jpeg;base64,' + mensagem.imagem" alt="Imagem da Mensagem"
-        class="img-thumbnail" style="max-width: 50px; max-height: 50px; object-fit: contain; cursor: pointer;"
+        class="img-thumbnail max-w-72 max-h-48 object-cover rounded-sm"
         (click)="exibirImagemGrande(mensagem.imagem)">
     </div>
     <div class="flex gap-1 w-full justify-start">

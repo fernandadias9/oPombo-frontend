@@ -7,6 +7,7 @@
       <app-input type="date" label="" [(ngModel)]="filtro.dataInicial" name="dataInicial"></app-input>
       <app-input type="date" label="" [(ngModel)]="filtro.dataFinal" name="dataFinal"></app-input>
       <app-confirm-button label="Filtrar"></app-confirm-button>
+      <app-cancel-button label="Limpar" (click)="limpar()"></app-cancel-button>
     </form>
 
 
@@ -30,21 +31,5 @@
     <mat-paginator [length]="totalMensagens" [pageSize]="filtro.limite" [pageSizeOptions]="[30, 60, 100]"
       (page)="onPaginaMudou($event)">
     </mat-paginator>
-
-    <!-- <div class="flex justify-center mt-4">
-      <button
-        *ngIf="paginaAtual > 1"
-        class="btn btn-secondary"
-        (click)="alterarPagina(paginaAtual - 1)"
-      >
-        Anterior
-      </button>
-      <button
-        class="btn btn-secondary"
-        (click)="alterarPagina(paginaAtual + 1)"
-      >
-        Próxima
-      </button>
-    </div> -->
   </div>
 </div>

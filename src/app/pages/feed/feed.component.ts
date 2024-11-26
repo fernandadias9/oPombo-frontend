@@ -75,18 +75,6 @@ export class FeedComponent implements OnInit {
   }
 
   public limpar() {
-    this.seletor = new MensagemFiltro();
+    this.filtro = new MensagemFiltro();
   }
-
-  // carregarMensagens(): void {
-  //   this.mensagemService.listarMensagens().subscribe((mensagens) => {
-  //     this.mensagens = mensagens;
-  //   });
-  // }
-
-
-  // alterarPagina(pagina: number): void {
-  //   this.filtro.pagina = pagina;
-  //   this.carregarMensagens();
-  // }
 }
