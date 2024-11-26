@@ -1,3 +1,4 @@
+import { Usuario } from './../../model/entities/usuario';
 import { Denuncia } from './../../model/entities/denuncia';
 import { AuthService } from './../../service/auth-service';
 import { MensagemService } from '../../service/mensagem.service';
@@ -6,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { DenunciaService } from '../../service/denuncia.service';
 import { DenunciaDTO } from '../../model/dto/denunciaDto';
+import { UsuarioService } from '../../service/usuario.service';
 
 @Component({
   selector: 'app-post-card',
@@ -15,19 +17,30 @@ import { DenunciaDTO } from '../../model/dto/denunciaDto';
 export class PostCardComponent implements OnInit {
   @Input() mensagem!: Mensagem;
   usuarioAutenticadoId!: string;
+  usuario!: Usuario;
   usuarioAutenticadoCurtiu: boolean = false;
   @Input() denunciaDTO: DenunciaDTO = new DenunciaDTO();
   menuAberto: boolean = false;
+  usuarioAutenticado!: Usuario;
+  modalAberto!: boolean;
 
   constructor(
     private mensagemService: MensagemService,
     private authService: AuthService,
-    private denunciaService: DenunciaService
+    private denunciaService: DenunciaService,
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit(): void {
-    // this.usuarioAutenticadoId = this.authService.getUserIdFromToken() || '';
     this.getUsuarioAutenticadoCurtiu();
+    this.usuarioService.getAuthenticatedUser().subscribe({
+      next: (data) => {
+        this.usuarioAutenticado = data;
+      },
+      error: (error) => {
+        console.error('Erro ao obter usuário autenticado', error);
+      },
+    });
   }
 
   getUsuarioAutenticadoCurtiu() {
@@ -67,6 +80,46 @@ export class PostCardComponent implements OnInit {
   toggleMenu(): void {
     this.menuAberto = !this.menuAberto;
     this.denunciaDTO.idMensagem = this.mensagem.id;
+  }
+
+  excluirMensagem(): void {
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: 'Você deseja excluir esta mensagem? Esta ação não pode ser desfeita.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sim, excluir',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.mensagemService.excluirMensagem(this.mensagem.id).subscribe(() => {
+          Swal.fire('Excluído!', 'A mensagem foi excluída.', 'success');
+          this.menuAberto = false;
+          // Aqui você pode emitir um evento para atualizar a lista de mensagens no componente pai
+        });
+      }
+    });
+  }
+
+  isUsuarioAutenticado(): boolean {
+    return this.usuarioAutenticado.id == this.mensagem.publicador.id;
+  }
+
+  abrirModalDenuncia(): void {
+    this.denunciaDTO.idMensagem = this.mensagem.id;
+    this.denunciaDTO.idUsuario = this.mensagem.publicador.id;
+    this.denunciaDTO.nomeDenunciante = this.usuarioAutenticado.nome;
+    this.denunciaDTO.conteudoMensagem = this.mensagem.texto;
+    this.denunciaDTO.dataDenuncia = new Date();
+
+    this.modalAberto = true; // Exibe o modal
+    this.menuAberto = false; // Fecha o menu
+  }
+
+  fecharModalDenuncia(): void {
+    this.modalAberto = false; // Fecha o modal
   }
 
 }

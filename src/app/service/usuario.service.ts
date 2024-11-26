@@ -16,6 +16,10 @@ export class UsuarioService {
     return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
   }
 
+  getAuthenticatedUser(): Observable<Usuario> {
+    return this.http.get<Usuario>(this.apiUrl + '/autenticado');
+  }
+
   updateUser(user: Usuario): Observable<Usuario> {
     return this.http.put<Usuario>(this.apiUrl, user);
   }
