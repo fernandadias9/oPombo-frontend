@@ -47,17 +47,11 @@ export class AuthService {
       Authorization: authHeader,
     });
 
-    if (this.getTipoFromToken() === 'ADMINISTRADOR') {
-      this.router.navigate(['/denuncias']);
-    } else {
-      this.router.navigate(['/feed']);
-    }
-
     return this.http.post<string>(this.apiUrl + '/authenticate', dto, {
       headers,
       observe: 'response',
       responseType: 'text' as 'json',
-    });
+    },);
   }
 
   sair() {

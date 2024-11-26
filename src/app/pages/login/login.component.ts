@@ -17,6 +17,18 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  public verificarPermissao() {
+    const tipoUsuarioAutenticado = this.authService.getTipoFromToken();
+
+    console.log(tipoUsuarioAutenticado);
+
+    if (tipoUsuarioAutenticado === 'ADMINISTRADOR') {
+      this.router.navigate(['/denuncias']);
+    } else {
+      this.router.navigate(['/feed']);
+    }
+  }
+
   public realizarLogin() {
     this.authService.autenticar(this.usuarioDto).subscribe({
       next: (jwt) => {
@@ -29,7 +41,7 @@ export class LoginComponent {
         });
         let token: string = jwt.body + '';
         localStorage.setItem('tokenUsuarioAutenticado', token);
-        this.router.navigate(['/feed']);
+        this.verificarPermissao();
       },
       error: (erro) => {
         var mensagem: string;
