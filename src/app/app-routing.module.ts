@@ -5,14 +5,17 @@ import { CadastroUsuarioComponent } from './pages/cadastro-usuario/cadastro-usua
 import { FeedComponent } from './pages/feed/feed.component';
 import { DenunciasComponent } from './pages/denuncias/denuncias.component';
 import { DenunciaDetalheComponent } from './pages/denuncia-detalhe/denuncia-detalhe.component';
+import { SemPermissaoComponent } from './pages/sem-permissao/sem-permissao.component';
+import { AuthGuard } from './guards/auth.guard';
 //import { PerfilComponent } from './pages/perfil/perfil.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'cadastro-usuario', component: CadastroUsuarioComponent },
   { path: 'feed', component: FeedComponent },
-  { path: 'denuncias', component: DenunciasComponent },
-  { path: 'denuncias/:id', component: DenunciaDetalheComponent },
+  { path: 'denuncias', component: DenunciasComponent, canActivate: [AuthGuard] },
+  { path: 'denuncias/:id', component: DenunciaDetalheComponent, canActivate: [AuthGuard] },
+  { path: 'sem-permissao', component: SemPermissaoComponent },
   //{ path: 'perfil', component: PerfilComponent}
 ];
 @NgModule({

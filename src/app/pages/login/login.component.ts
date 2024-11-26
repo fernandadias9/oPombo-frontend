@@ -20,8 +20,6 @@ export class LoginComponent {
   public verificarPermissao() {
     const tipoUsuarioAutenticado = this.authService.getTipoFromToken();
 
-    console.log(tipoUsuarioAutenticado);
-
     if (tipoUsuarioAutenticado === 'ADMINISTRADOR') {
       this.router.navigate(['/denuncias']);
     } else {
