@@ -104,7 +104,7 @@ export class PostCardComponent implements OnInit {
   }
 
   isUsuarioAutenticado(): boolean {
-    return this.usuarioAutenticado.id == this.mensagem.publicador.id;
+    return this.usuarioAutenticado.id == this.mensagem.publicador?.id;
   }
 
   abrirModalDenuncia(): void {

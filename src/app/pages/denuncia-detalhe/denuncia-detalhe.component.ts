@@ -21,10 +21,24 @@ export class DenunciaDetalheComponent {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    this.denunciaService.buscar(id).subscribe((data) => {
-      this.denuncia = data;
-    });
+    const idMensagem = this.route.snapshot.paramMap.get('idMensagem');
+    const idUsuario = this.route.snapshot.paramMap.get('idUsuario');
+
+    if (idMensagem && idUsuario) {
+      this.denunciaService.buscar(idMensagem, idUsuario).subscribe(
+        (data) => {
+          this.denuncia = data;
+        },
+        (error) => {
+          console.error('Erro ao buscar denúncia:', error);
+          alert('Erro ao carregar os detalhes da denúncia.');
+        }
+      );
+    }
+  }
+
+  voltar(): void {
+    this.router.navigate(['/denuncias']);
   }
 
   aceitarDenuncia(): void {

@@ -38,7 +38,7 @@
           <td class="border p-2">{{ denuncia.data | date:'short' }}</td>
           <td class="border p-2">{{ denuncia.foiAnalisada ? 'Sim' : 'Não' }}</td>
           <td class="border p-2 text-center">
-            <i class="ph ph-eye cursor-pointer text-blue-500" (click)="abrirDetalhes(denuncia.id)"></i>
+            <i class="ph ph-eye cursor-pointer text-blue-500" (click)="abrirDetalhes(denuncia.mensagem.id, denuncia.usuario.id)"></i>
           </td>
         </tr>
       </tbody>

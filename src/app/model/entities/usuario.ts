@@ -7,5 +7,5 @@ export class Usuario {
     email!: string;
     tipoUsuario!: TipoDeUsuario;
     senha!: string;
-    fotoPerfil?: string
+    fotoPerfil?: string | null;
 }

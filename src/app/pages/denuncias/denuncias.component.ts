@@ -25,7 +25,7 @@ export class DenunciasComponent {
     });
   }
 
-  abrirDetalhes(id: any): void {
-    this.router.navigate([`/denuncias/${id}`]);
+  abrirDetalhes(idMensagem: string, idUsuario: string): void {
+    this.router.navigate([`/denuncias/${idMensagem}/${idUsuario}`]);
   }
 }

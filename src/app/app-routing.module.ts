@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'cadastro-usuario', component: CadastroUsuarioComponent },
   { path: 'feed', component: FeedComponent },
   { path: 'denuncias', component: DenunciasComponent, canActivate: [AuthGuard] },
-  { path: 'denuncias/:id', component: DenunciaDetalheComponent, canActivate: [AuthGuard] },
+  { path: 'denuncias/:idMensagem/:idUsuario', component: DenunciaDetalheComponent, canActivate: [AuthGuard] },
   { path: 'sem-permissao', component: SemPermissaoComponent },
   //{ path: 'perfil', component: PerfilComponent}
 ];

@@ -23,8 +23,8 @@ export class DenunciaService {
   }
 
   // Buscar denúncia pelo ID
-  buscar(id: string): Observable<Denuncia> {
-    return this.http.get<Denuncia>(`${this.apiUrl}/${id}`);
+  buscar(idMensagem: string, idUsuario: string): Observable<Denuncia> {
+    return this.http.get<Denuncia>(`${this.apiUrl}/${idMensagem}/${idUsuario}`);
   }
 
   // Listar todas as denúncias (como DTO)
