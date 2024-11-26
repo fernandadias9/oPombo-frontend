@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsuarioService } from '../../service/usuario.service';
 import { Usuario } from '../../model/entities/usuario';
 import { ImagemService } from '../../service/imagem.service';
@@ -7,6 +6,7 @@ import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuarioDTO } from '../../model/dto/usuarioDto';
 import { TipoDeUsuario } from '../../model/enums/tipoUsuario';
+import { AuthService } from '../../service/auth-service';
 
 @Component({
   selector: 'app-perfil',
@@ -26,7 +26,8 @@ export class PerfilComponent implements OnInit {
     private usuarioService: UsuarioService,
     private imagemService: ImagemService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -111,7 +112,8 @@ export class PerfilComponent implements OnInit {
   }
 
   cancelarEdicao() {
-    if(this.usuario.tipoUsuario === TipoDeUsuario.ADMINISTRADOR) {
+    const tipoDeUsuario = this.authService.getTipoFromToken();
+    if(tipoDeUsuario === 'ADMINISTRADOR') {
       this.router.navigate(['/denuncias']);
     } else {
       this.router.navigate(['/feed']);

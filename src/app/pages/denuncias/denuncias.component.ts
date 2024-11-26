@@ -32,8 +32,6 @@ export class DenunciasComponent {
       resultado => {
         this.denuncias = resultado;
         this.totalDenuncias = resultado.length;
-        console.log('entrou aqui');
-
       }
     );
   }
