@@ -20,6 +20,7 @@
     @Input() type: string = 'text';
     @Input() value: any;
     @Input() disabled: boolean = false;
+    @Input() placeholder: string = '';
 
     @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 

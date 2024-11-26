@@ -29,7 +29,6 @@ export class FeedComponent implements OnInit {
   paginaAtual = 1;
   totalMensagens!: number;
   modalAberto = false;
-  public seletor: MensagemFiltro = new MensagemFiltro();
   usuarioAutenticado!: Usuario;
   isAuthenticated: boolean = false;
   router: any;

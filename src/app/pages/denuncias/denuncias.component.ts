@@ -16,10 +16,11 @@ export class DenunciasComponent {
   filtro: DenunciaFiltro = {
     pagina: 1,
     limite: 30,
+    motivoDaDenuncia: "",
+    foiAnalisada: undefined
   };
   paginaAtual = 1;
   totalDenuncias!: number;
-  public seletor: DenunciaFiltro = new DenunciaFiltro();
 
   constructor(private denunciaService: DenunciaService, private router: Router) { }
 
@@ -37,7 +38,8 @@ export class DenunciasComponent {
   }
 
   public limpar() {
-    this.seletor = new DenunciaFiltro();
+    this.filtro = new DenunciaFiltro();
+    this.filtro.motivoDaDenuncia = "";
   }
 
   abrirDetalhes(idMensagem: string, idUsuario: string): void {
