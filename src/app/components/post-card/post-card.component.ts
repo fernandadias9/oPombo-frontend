@@ -22,6 +22,7 @@ export class PostCardComponent implements OnInit {
   menuAberto: boolean = false;
   usuarioAutenticado!: Usuario;
   modalAberto!: boolean;
+  podeExcluir: boolean = true;
 
   constructor(
     private mensagemService: MensagemService,
@@ -34,6 +35,7 @@ export class PostCardComponent implements OnInit {
         this.usuarioAutenticado = data;
         this.usuarioAutenticadoId = this.usuarioAutenticado.id; // Atribui o ID do usuário autenticado
         this.getUsuarioAutenticadoCurtiu(); // Agora que temos o ID do usuário autenticado, podemos chamar o método
+        this.verificarSePodeExcluir();
       },
       error: (error) => {
         console.error('Erro ao obter usuário autenticado', error);
@@ -43,11 +45,23 @@ export class PostCardComponent implements OnInit {
 
   getUsuarioAutenticadoCurtiu() {
     if (this.mensagem.usuariosQueCurtiram.some(
-      (usuario) => usuario.id === this.usuarioAutenticadoId
+      (usuario) => usuario?.id === this.usuarioAutenticadoId
     )) {
       this.usuarioAutenticadoCurtiu = true;
     } else {
       this.usuarioAutenticadoCurtiu = false;
+    }
+  }
+
+  verificarSePodeExcluir() {
+    const isUsuarioAutenticado = this.isUsuarioAutenticado();
+    const foiCurtida = this.mensagem.qtdeLikes > 0;
+    if(!isUsuarioAutenticado) {
+      this.podeExcluir = false;
+    } else {
+      if(foiCurtida) {
+        this.podeExcluir = false;
+      }
     }
   }
 
@@ -121,5 +135,4 @@ export class PostCardComponent implements OnInit {
   fecharModalDenuncia(): void {
     this.modalAberto = false; // Fecha o modal
   }
-
 }
