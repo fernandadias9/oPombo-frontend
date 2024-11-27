@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import { UsuarioDTO } from '../../model/dto/usuarioDto';
 import { Usuario } from '../../model/entities/usuario';
 import { ImagemService } from '../../service/imagem.service';
-import { TipoDeUsuario } from '../../model/enums/tipoUsuario';
 import { UsuarioService } from './../../service/usuario.service';
 import { AuthService } from '../../service/auth-service';
 
@@ -115,6 +114,6 @@ export class PerfilComponent implements OnInit {
     } else {
       this.router.navigate(['/feed']);
     }
+
   }
 }
-
